@@ -57,7 +57,7 @@ function App() {
     <div
       className={clsx(
         "layout",
-        "font-family--" + settings.font.replace(/\s/g, "-")
+        settings.font && "font-family--" + settings.font.replace(/\s/g, "-")
       )}
     >
       <Nav
