@@ -32,10 +32,23 @@ export const JP2EN = ({ settings }: Props) => {
 
   const handleKeyPress = (event: KeyboardEvent) => {
     if (event.key === " " && !guessedCorrectly) {
-      const nextLetter = answer[guess.length];
       event.preventDefault();
-      setGuess(guess + nextLetter);
-    } else if (guessedCorrectly) {
+
+      const nextLetter = answer[guess.length];
+      let updateValue = guess + nextLetter;
+
+      for (let i = 0; i < guess.length; i++) {
+        if (guess[i] !== answer[i]) {
+          updateValue = answer[0];
+        }
+      }
+
+      setGuess(updateValue);
+    } else if (
+      guessedCorrectly ||
+      (guess.length === 3 &&
+        !(event.key === "Backspace" || event.key === "Delete"))
+    ) {
       event.preventDefault();
     }
   };
@@ -94,7 +107,6 @@ export const JP2EN = ({ settings }: Props) => {
           className={clsx("input", guessedCorrectly && "input--success")}
           value={guess}
           onChange={(e) => {
-            console.log(e.target.value);
             setGuess(e.target.value);
           }}
         />
