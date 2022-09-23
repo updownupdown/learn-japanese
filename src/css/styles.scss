@@ -23,22 +23,8 @@ $theme-colors: (
   "status-orange": #f19c2d,
   "status-red": #d75453,
   "status-blue": #42a8d5,
-  "temperature": #f1593b,
-  "feels-like": #f8954e,
-  "pop": #53757d,
-  "humidity": #55a4c1,
-  "wind": #55c1ba,
-  "zero-line": #ccc,
-  "sunrise": #f19c2d,
-  "moon": #435962,
-  "moonlight": #f7f8f9,
-  "moonrise": #87a9cd,
-  "alert-background": #fdf6f6,
-  "icon-cloud": #535b61,
-  "icon-orange": #f19c2d,
-  "icon-rain": #4cb9f0,
-  "icon-snow": #849ad9,
-  "icon-moon": #87a9cd,
+  "accent": #bc002d,
+  "accent-hover": #780822,
 );
 
 :root {
@@ -85,7 +71,7 @@ select {
   font-family: var(--font);
 }
 
-button {
+.button {
   transition: 0.2s ease all;
   cursor: pointer;
   display: flex;
@@ -141,96 +127,9 @@ p {
   line-height: 1.3;
 }
 
-.hiragana-tables {
-  display: flex;
-  margin: 50px;
-  align-items: flex-start;
+label {
+  font-size: 16px;
+  font-weight: 700;
 }
 
-.table {
-  $legend-width: 40px;
-  $cell-height: 70px;
-  $cell-width: 68px;
-  $cell-width-wide: 120px;
-
-  display: flex;
-  flex-direction: column;
-
-  text-align: center;
-
-  background: var(--K150);
-
-  @mixin legend {
-    font-size: 18px;
-    font-weight: 400;
-
-    color: var(--K600);
-  }
-
-  &__title {
-    flex: 1;
-    width: 100%;
-    padding: 20px 0 0;
-
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--K700);
-  }
-  &__headers {
-    display: flex;
-    padding-left: $legend-width;
-
-    span {
-      flex: 1;
-      padding: 12px 0;
-
-      @include legend();
-    }
-  }
-
-  &__wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  &__row {
-    display: flex;
-    gap: 2px;
-
-    &__legend {
-      @include legend();
-      display: flex;
-      width: $legend-width;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .cell {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      flex: 1;
-      gap: 4px;
-      width: $cell-width;
-      height: $cell-height;
-      background: var(--white);
-
-      .jp {
-        font-size: 32px;
-      }
-      .en {
-        font-size: 16px;
-        font-weight: 400;
-      }
-
-      &--exception .en {
-        font-weight: 700;
-      }
-    }
-  }
-
-  &--wide .cell {
-    width: $cell-width-wide;
-  }
-}
+@import "./layout.scss";

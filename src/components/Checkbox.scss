@@ -1,0 +1,28 @@
+.checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+
+  &,
+  &__label {
+    cursor: pointer;
+  }
+
+  input {
+    display: none;
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  &--unchecked svg path {
+    fill: var(--K800);
+  }
+  &--unchecked:hover svg path,
+  &--checked svg path {
+    fill: var(--accent);
+  }
+}
