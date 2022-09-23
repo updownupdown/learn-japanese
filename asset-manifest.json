@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/learn-japanese/static/css/main.ed6b6b5c.css",
+    "main.js": "/learn-japanese/static/js/main.34c642bf.js",
+    "static/js/787.d3df8995.chunk.js": "/learn-japanese/static/js/787.d3df8995.chunk.js",
+    "index.html": "/learn-japanese/index.html",
+    "main.ed6b6b5c.css.map": "/learn-japanese/static/css/main.ed6b6b5c.css.map",
+    "main.34c642bf.js.map": "/learn-japanese/static/js/main.34c642bf.js.map",
+    "787.d3df8995.chunk.js.map": "/learn-japanese/static/js/787.d3df8995.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ed6b6b5c.css",
+    "static/js/main.34c642bf.js"
+  ]
+}
