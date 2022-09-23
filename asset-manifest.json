@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/learn-japanese/static/css/main.5f5e4dda.css",
-    "main.js": "/learn-japanese/static/js/main.fe58ff17.js",
+    "main.css": "/learn-japanese/static/css/main.d91867aa.css",
+    "main.js": "/learn-japanese/static/js/main.eaaf65b0.js",
     "index.html": "/learn-japanese/index.html",
-    "main.5f5e4dda.css.map": "/learn-japanese/static/css/main.5f5e4dda.css.map",
-    "main.fe58ff17.js.map": "/learn-japanese/static/js/main.fe58ff17.js.map"
+    "main.d91867aa.css.map": "/learn-japanese/static/css/main.d91867aa.css.map",
+    "main.eaaf65b0.js.map": "/learn-japanese/static/js/main.eaaf65b0.js.map"
   },
   "entrypoints": [
-    "static/css/main.5f5e4dda.css",
-    "static/js/main.fe58ff17.js"
+    "static/css/main.d91867aa.css",
+    "static/js/main.eaaf65b0.js"
   ]
 }
