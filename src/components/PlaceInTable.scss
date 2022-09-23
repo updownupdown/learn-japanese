@@ -1,0 +1,201 @@
+@import "../css/media.scss";
+
+.pit {
+  $border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @media #{$query-min-lg} {
+    margin: 40px;
+  }
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    .pit-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 150px;
+      height: 80px;
+      flex-shrink: 0;
+
+      border-radius: 10px;
+
+      font-weight: 600;
+      line-height: 1;
+
+      &--question {
+        background: var(--white);
+        box-shadow: 1px 2px 6px rgba(var(--K700-rgb), 0.1),
+          4px 8px 20px rgba(var(--K700-rgb), 0.08);
+
+        font-size: 60px;
+      }
+      &--guess {
+        background: var(--K150);
+        box-shadow: inset 0 0 10px var(--K300);
+
+        font-size: 44px;
+      }
+      &--correct {
+        color: var(--status-green);
+      }
+      &--incorrect {
+        color: var(--status-red);
+      }
+    }
+  }
+
+  &__table-wrap {
+    border-radius: $border-radius;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.08), 0 0 8px rgba(0, 0, 0, 0.08);
+  }
+
+  &__table {
+    $legend-size: 60px;
+    $cell-height: 70px;
+    $cell-height-hover-only: 50px;
+    $cell-width: 66px;
+    $cell-width-wide: 92px;
+    $cell-gap: 1px;
+
+    $shadow-regular: 0 0 0 0 rgba(0, 0, 0, 0);
+    $shadow-success: 0 0 0 8px var(--status-green);
+    $shadow-error: 0 0 0 8px var(--status-red);
+
+    display: flex;
+    flex-direction: column;
+    padding: $cell-gap;
+
+    border-radius: $border-radius;
+    background: var(--K150);
+    box-shadow: 1px 2px 6px rgba(var(--K700-rgb), 0.1),
+      4px 8px 20px rgba(var(--K700-rgb), 0.08);
+
+    text-align: center;
+
+    animation-duration: 1.5s;
+
+    &--correct {
+      animation-name: glow-green;
+    }
+    &--incorrect {
+      animation-name: glow-red;
+    }
+
+    @keyframes glow-green {
+      0% {
+        box-shadow: $shadow-regular;
+      }
+      50% {
+        box-shadow: $shadow-success;
+      }
+      100% {
+        box-shadow: $shadow-regular;
+      }
+    }
+    @keyframes glow-red {
+      0% {
+        box-shadow: $shadow-regular;
+      }
+      50% {
+        box-shadow: $shadow-error;
+      }
+      100% {
+        box-shadow: $shadow-regular;
+      }
+    }
+
+    @mixin legend {
+      font-size: 18px;
+      font-weight: 600;
+
+      color: var(--K600);
+    }
+
+    &__title {
+      flex: 1;
+      width: 100%;
+      padding: 20px 0 0;
+
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--K700);
+    }
+
+    &__rows {
+      display: flex;
+      flex-direction: column;
+      gap: $cell-gap;
+    }
+
+    &__row {
+      display: flex;
+      gap: $cell-gap;
+
+      &__legend {
+        @include legend();
+        display: flex;
+        width: $legend-size;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        background-color: var(--K150);
+
+        &--dakuten {
+          background-color: var(--K200);
+        }
+      }
+
+      .cell {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex-shrink: 0;
+        width: $cell-width;
+        height: $cell-height;
+
+        background: var(--white);
+        font-size: 28px;
+
+        &--wide {
+          width: $cell-width-wide;
+        }
+
+        &--dakuten,
+        &--null {
+          background-color: var(--K100);
+        }
+
+        &:not(.cell--null) {
+          cursor: pointer;
+
+          &:hover {
+            background-color: rgba(var(--accent-rgb), 0.2);
+            box-shadow: inset 0 0 0 3px rgba(var(--accent-rgb), 0.8);
+          }
+        }
+      }
+
+      &:first-child .cell:first-child {
+        border-top-left-radius: $border-radius;
+      }
+      &:first-child .cell:last-child {
+        border-top-right-radius: $border-radius;
+      }
+      &:last-child .cell:first-child {
+        border-bottom-left-radius: $border-radius;
+      }
+      &:last-child .cell:last-child {
+        border-bottom-right-radius: $border-radius;
+      }
+    }
+  }
+}

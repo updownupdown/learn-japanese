@@ -1,19 +1,11 @@
-import clsx from "clsx";
 import React, { useState, useEffect } from "react";
 import { Settings } from "../App";
-import { alphabets, AlphabetType, AlphabetTypes } from "../library/alphabet";
-import { delay } from "../utils/utils";
-import { isYoon } from "./AlphabetTable";
-import { Checkbox } from "./Checkbox";
+import { delay, getRandomCharacter, isYoon } from "../utils/utils";
+import clsx from "clsx";
 import "./JP2EN.scss";
 
 interface Props {
   settings: Settings;
-}
-
-interface QuestionProps {
-  question: string;
-  answer: string;
 }
 
 export const JP2EN = ({ settings }: Props) => {
@@ -54,28 +46,10 @@ export const JP2EN = ({ settings }: Props) => {
   };
 
   function getNewCard() {
-    let letters: QuestionProps[] = [];
+    const randomCharacter = getRandomCharacter(settings);
 
-    alphabets.forEach((row) => {
-      row.letters.forEach((letter, i) => {
-        if (
-          letter === null ||
-          (row.dakuten && !settings.includeDakuten) ||
-          (isYoon(i) && !settings.includeYoon)
-        )
-          return;
-
-        const character =
-          settings.alphabet === AlphabetTypes.hiragana ? letter.hg : letter.kk;
-
-        letters.push({ question: character, answer: letter.en });
-      });
-    });
-
-    const randomLetter = letters[Math.floor(Math.random() * letters.length)];
-
-    setQuestion(randomLetter.question);
-    setAnswer(randomLetter.answer);
+    setQuestion(randomCharacter.characterJp);
+    setAnswer(randomCharacter.characterEn);
     setGuess("");
     setGuessedCorrectly(false);
   }

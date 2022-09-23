@@ -1,12 +1,12 @@
 import React from "react";
-import { Settings, Modes, Fonts } from "../App";
+import { Settings, Modes, Fonts, instructions } from "../App";
 import { AlphabetTypes } from "../library/alphabet";
 import { Checkbox } from "./Checkbox";
 import { Toggle, ToggleGroup } from "./Toggle";
-import "./Nav.scss";
-import clsx from "clsx";
 import { Menu } from "./Icons/Menu";
 import { Close } from "./Icons/Close";
+import clsx from "clsx";
+import "./Nav.scss";
 
 interface MenuSectionProps {
   title: string;
@@ -35,12 +35,6 @@ export const Nav = ({
   showMenu,
   setShowMenu,
 }: Props) => {
-  const instructions = {
-    [Modes.tableReview]: "Review the hiragana and katakana characters.",
-    [Modes.jp2en]:
-      "Type the corresponding romanji (English characters) in the box for each character shown. Press spacebar for a hint!",
-  };
-
   return (
     <>
       <div className="menu-icon" onClick={() => setShowMenu(true)}>

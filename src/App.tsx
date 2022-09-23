@@ -3,16 +3,25 @@ import React, { useState } from "react";
 import { AlphabetTable } from "./components/AlphabetTable";
 import { JP2EN } from "./components/JP2EN";
 import { Nav } from "./components/Nav";
+import { PlaceInTable } from "./components/PlaceInTable";
 import { AlphabetType, AlphabetTypes } from "./library/alphabet";
 import { ValueOf } from "./utils/utils";
 
 export const Modes = {
-  tableReview: "Table Review",
-  // tableQuiz: "Table Quiz",
-  jp2en: "JP to EN Quiz",
+  tableReview: "Study",
+  placeInTable: "Find in table",
+  jp2en: "Type the character",
   // en2jp: "English to Japanese",
 } as const;
 export type Mode = ValueOf<typeof Modes>;
+
+export const instructions = {
+  [Modes.tableReview]: "Review the hiragana and katakana characters.",
+  [Modes.jp2en]:
+    "Type the corresponding romanji (English characters) in the box for each character shown. Press spacebar for a hint!",
+  [Modes.placeInTable]:
+    "Find the correct location for the character in the table by clicking the appropriate cell.",
+};
 
 export const Fonts = {
   notoSansJp: "Noto Sans",
@@ -72,6 +81,9 @@ function App() {
           <AlphabetTable settings={settings} />
         )}
         {settings.mode === Modes.jp2en && <JP2EN settings={settings} />}
+        {settings.mode === Modes.placeInTable && (
+          <PlaceInTable settings={settings} />
+        )}
       </div>
     </div>
   );

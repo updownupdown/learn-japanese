@@ -5,15 +5,12 @@ import {
   alphabets,
   AlphabetTypes,
 } from "../library/alphabet";
-import "./AlphabetTable.scss";
 import { Settings } from "../App";
+import { isYoon } from "../utils/utils";
+import "./AlphabetTable.scss";
 
 interface Props {
   settings: Settings;
-}
-
-export function isYoon(i: number) {
-  return i > 4;
 }
 
 export const AlphabetTable = ({ settings }: Props) => {
