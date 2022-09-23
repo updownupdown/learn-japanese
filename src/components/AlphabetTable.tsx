@@ -14,7 +14,7 @@ interface Props {
   includeYoon: boolean;
 }
 
-function isYoon(i: number) {
+export function isYoon(i: number) {
   return i > 4;
 }
 
@@ -55,7 +55,7 @@ export const AlphabetTable = ({
                 {row.title}
               </span>
 
-              {row.cells.map((cell, i) => {
+              {row.letters.map((cell, i) => {
                 if (isYoon(i) && !includeYoon) return null;
 
                 return (

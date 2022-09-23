@@ -89,7 +89,8 @@
         width: $cell-width-wide;
       }
 
-      &--dakuten {
+      &--dakuten,
+      &--null {
         background-color: var(--K100);
       }
 

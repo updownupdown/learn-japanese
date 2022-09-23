@@ -18,7 +18,7 @@ interface TableCell {
 interface TableRow {
   title: string;
   dakuten: boolean;
-  cells: (TableCell | null)[];
+  letters: (TableCell | null)[];
 }
 
 export const alphabetsColumns = ["a", "i", "u", "e", "o", "ya", "yu", "yo"];
@@ -27,7 +27,7 @@ export const alphabets: TableRow[] = [
   {
     title: "∅",
     dakuten: false,
-    cells: [
+    letters: [
       {
         hg: "あ",
         kk: "ア",
@@ -61,7 +61,7 @@ export const alphabets: TableRow[] = [
   {
     title: "k",
     dakuten: false,
-    cells: [
+    letters: [
       {
         hg: "か",
         kk: "カ",
@@ -107,7 +107,7 @@ export const alphabets: TableRow[] = [
   {
     title: "g",
     dakuten: true,
-    cells: [
+    letters: [
       {
         hg: "が",
         kk: "ガ",
@@ -153,7 +153,7 @@ export const alphabets: TableRow[] = [
   {
     title: "s",
     dakuten: false,
-    cells: [
+    letters: [
       {
         hg: "さ",
         kk: "サ",
@@ -203,7 +203,7 @@ export const alphabets: TableRow[] = [
   {
     title: "z",
     dakuten: true,
-    cells: [
+    letters: [
       {
         hg: "ざ",
         kk: "ザ",
@@ -253,7 +253,7 @@ export const alphabets: TableRow[] = [
   {
     title: "t",
     dakuten: false,
-    cells: [
+    letters: [
       {
         hg: "た",
         kk: "タ",
@@ -304,7 +304,7 @@ export const alphabets: TableRow[] = [
   {
     title: "d",
     dakuten: true,
-    cells: [
+    letters: [
       {
         hg: "だ",
         kk: "ダ",
@@ -355,7 +355,7 @@ export const alphabets: TableRow[] = [
   {
     title: "n",
     dakuten: false,
-    cells: [
+    letters: [
       {
         hg: "な",
         kk: "ナ",
@@ -401,7 +401,7 @@ export const alphabets: TableRow[] = [
   {
     title: "h",
     dakuten: false,
-    cells: [
+    letters: [
       {
         hg: "は",
         kk: "ハ",
@@ -448,7 +448,7 @@ export const alphabets: TableRow[] = [
   {
     title: "b",
     dakuten: true,
-    cells: [
+    letters: [
       {
         hg: "ば",
         kk: "バ",
@@ -494,7 +494,7 @@ export const alphabets: TableRow[] = [
   {
     title: "p",
     dakuten: true,
-    cells: [
+    letters: [
       {
         hg: "ぱ",
         kk: "パ",
@@ -540,7 +540,7 @@ export const alphabets: TableRow[] = [
   {
     title: "m",
     dakuten: false,
-    cells: [
+    letters: [
       {
         hg: "ま",
         kk: "マ",
@@ -586,7 +586,7 @@ export const alphabets: TableRow[] = [
   {
     title: "y",
     dakuten: false,
-    cells: [
+    letters: [
       {
         hg: "や",
         kk: "ヤ",
@@ -612,7 +612,7 @@ export const alphabets: TableRow[] = [
   {
     title: "r",
     dakuten: false,
-    cells: [
+    letters: [
       {
         hg: "ら",
         kk: "ラ",
@@ -658,7 +658,7 @@ export const alphabets: TableRow[] = [
   {
     title: "w",
     dakuten: false,
-    cells: [
+    letters: [
       {
         hg: "わ",
         kk: "ワ",
@@ -689,7 +689,7 @@ export const alphabets: TableRow[] = [
   {
     title: "",
     dakuten: false,
-    cells: [
+    letters: [
       {
         hg: "ん",
         kk: "ン",

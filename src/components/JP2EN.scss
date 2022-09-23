@@ -1,0 +1,51 @@
+.jp2en {
+  .jp2en-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    gap: 30px;
+    padding: 30px;
+
+    border-radius: 10px;
+    background: var(--white);
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.08),
+      1px 2px 12px rgba(0, 0, 0, 0.08);
+
+    &__jp {
+      font-size: 60px;
+    }
+    &__end {
+      font-size: 20px;
+    }
+
+    .input {
+      transition: 0.2s ease all;
+      transition-property: border-color, box-shadow, background-color;
+      padding: 20px;
+      width: 120px;
+
+      border-radius: 8px;
+      border: 2px solid var(--K300);
+
+      font-size: 20px;
+      text-align: center;
+
+      &:not(.input--success):hover {
+        border-color: var(--K500);
+        box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.1);
+      }
+      &:not(.input--success):focus {
+        outline: none;
+        border-color: var(--K600);
+        box-shadow: 0 0 0 4px var(--K200);
+      }
+      &--success {
+        outline: none;
+        background-color: rgba(var(--status-green-rgb), 0.04);
+        border-color: var(--status-green);
+        box-shadow: 0 0 0 4px rgba(var(--status-green-rgb), 0.2);
+      }
+    }
+  }
+}

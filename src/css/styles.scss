@@ -82,9 +82,9 @@ select {
   height: var(--input-height);
 
   border-radius: 4px;
-  border: unset;
+  border: 1px solid var(--K300);
   background: var(--white);
-  box-shadow: 1px 2px 8px rgba(var(--K800-rgb), 0.1);
+  box-shadow: unset;
 
   font-size: 16px;
   font-weight: 600;
@@ -94,9 +94,19 @@ select {
     outline: none;
   }
 
-  &:hover {
-    background: var(--K50);
-    box-shadow: 2px 4px 12px rgba(var(--K800-rgb), 0.2);
+  &:disabled {
+    border-color: var(--K200);
+    color: var(--K300);
+  }
+
+  &:not(:disabled) {
+    cursor: pointer;
+
+    &:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: rgba(var(--accent-rgb), 0.1);
+    }
   }
 
   &.button--icon {

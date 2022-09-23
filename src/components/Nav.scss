@@ -1,0 +1,51 @@
+.nav {
+  position: relative;
+  z-index: 2;
+  padding: 20px;
+  width: 250px;
+  background: var(--white);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.08), 0 0 8px rgba(0, 0, 0, 0.08);
+
+  &__icon {
+    display: none;
+    margin-bottom: 20px;
+
+    svg {
+      width: 32px;
+      height: 32px;
+
+      path {
+        fill: var(--K800);
+      }
+    }
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .menu-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    gap: 12px;
+
+    h3 {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .toggle-group,
+    .toggle-buttons {
+      width: 100%;
+    }
+  }
+
+  .menu-section + .menu-section {
+    padding-top: 20px;
+    border-top: 1px solid var(--K200);
+  }
+}

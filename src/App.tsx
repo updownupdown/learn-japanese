@@ -1,10 +1,21 @@
 import React, { useState } from "react";
 import { AlphabetTable } from "./components/AlphabetTable";
-import { Checkbox } from "./components/Checkbox";
-import { Toggle, ToggleGroup } from "./components/Toggle";
+import { JP2EN } from "./components/JP2EN";
+import { Nav } from "./components/Nav";
 import { AlphabetType, AlphabetTypes } from "./library/alphabet";
+import { ValueOf } from "./utils/utils";
+
+export const Modes = {
+  tableReview: "Table Review",
+  // tableQuiz: "Table Quiz",
+  jp2en: "JP to EN Practice",
+  // en2jp: "English to Japanese",
+} as const;
+export type Mode = ValueOf<typeof Modes>;
 
 function App() {
+  const [mode, setMode] = useState<Mode>(Modes.tableReview);
+
   const [alphabet, setAlphabet] = useState<AlphabetType>(
     AlphabetTypes.hiragana
   );
@@ -12,43 +23,34 @@ function App() {
   const [includeYoon, setIncludeYoon] = useState(false);
 
   return (
-    <div className="main">
-      <div className="main__toggles">
-        <ToggleGroup label="Alphabet" hideLabel>
-          <Toggle
-            name={AlphabetTypes.hiragana}
-            label={AlphabetTypes.hiragana}
-            isCurrent={alphabet === AlphabetTypes.hiragana}
-            onClick={() => setAlphabet(AlphabetTypes.hiragana)}
-          />
-          <Toggle
-            name={AlphabetTypes.katakana}
-            label={AlphabetTypes.katakana}
-            isCurrent={alphabet === AlphabetTypes.katakana}
-            onClick={() => setAlphabet(AlphabetTypes.katakana)}
-          />
-        </ToggleGroup>
-
-        <Checkbox
-          label="Dakuten"
-          name="dakuten"
-          isChecked={includeDakuten}
-          onChange={() => setIncludeDakuten(!includeDakuten)}
-        />
-
-        <Checkbox
-          label="Yōon"
-          name="yoon"
-          isChecked={includeYoon}
-          onChange={() => setIncludeYoon(!includeYoon)}
-        />
-      </div>
-
-      <AlphabetTable
+    <div className="layout">
+      <Nav
+        mode={mode}
+        setMode={setMode}
         alphabet={alphabet}
+        setAlphabet={setAlphabet}
         includeDakuten={includeDakuten}
+        setIncludeDakuten={setIncludeDakuten}
         includeYoon={includeYoon}
+        setIncludeYoon={setIncludeYoon}
       />
+
+      <div className="main">
+        {mode === Modes.tableReview && (
+          <AlphabetTable
+            alphabet={alphabet}
+            includeDakuten={includeDakuten}
+            includeYoon={includeYoon}
+          />
+        )}
+        {mode === Modes.jp2en && (
+          <JP2EN
+            alphabet={alphabet}
+            includeDakuten={includeDakuten}
+            includeYoon={includeYoon}
+          />
+        )}
+      </div>
     </div>
   );
 }
