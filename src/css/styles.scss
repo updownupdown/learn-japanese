@@ -72,7 +72,7 @@ body {
   justify-content: center;
   margin: 0;
 
-  background: var(--K150);
+  background: var(--white);
 
   color: var(--K800);
   line-height: 1;
@@ -139,4 +139,98 @@ p {
   font-size: 16px;
   font-weight: 600;
   line-height: 1.3;
+}
+
+.hiragana-tables {
+  display: flex;
+  margin: 50px;
+  align-items: flex-start;
+}
+
+.table {
+  $legend-width: 40px;
+  $cell-height: 70px;
+  $cell-width: 68px;
+  $cell-width-wide: 120px;
+
+  display: flex;
+  flex-direction: column;
+
+  text-align: center;
+
+  background: var(--K150);
+
+  @mixin legend {
+    font-size: 18px;
+    font-weight: 400;
+
+    color: var(--K600);
+  }
+
+  &__title {
+    flex: 1;
+    width: 100%;
+    padding: 20px 0 0;
+
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--K700);
+  }
+  &__headers {
+    display: flex;
+    padding-left: $legend-width;
+
+    span {
+      flex: 1;
+      padding: 12px 0;
+
+      @include legend();
+    }
+  }
+
+  &__wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__row {
+    display: flex;
+    gap: 2px;
+
+    &__legend {
+      @include legend();
+      display: flex;
+      width: $legend-width;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cell {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex: 1;
+      gap: 4px;
+      width: $cell-width;
+      height: $cell-height;
+      background: var(--white);
+
+      .jp {
+        font-size: 32px;
+      }
+      .en {
+        font-size: 16px;
+        font-weight: 400;
+      }
+
+      &--exception .en {
+        font-weight: 700;
+      }
+    }
+  }
+
+  &--wide .cell {
+    width: $cell-width-wide;
+  }
 }
