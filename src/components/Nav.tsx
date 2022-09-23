@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import { Mode, Modes } from "../App";
-import { AlphabetType, AlphabetTypes } from "../library/alphabet";
+import React from "react";
+import { Settings, Modes, Fonts } from "../App";
+import { AlphabetTypes } from "../library/alphabet";
 import { Checkbox } from "./Checkbox";
-import { Menu } from "./Icons/Menu";
-import "./Nav.scss";
 import { Toggle, ToggleGroup } from "./Toggle";
+import "./Nav.scss";
+import clsx from "clsx";
+import { Menu } from "./Icons/Menu";
+import { Close } from "./Icons/Close";
 
 interface MenuSectionProps {
   title: string;
@@ -21,83 +23,145 @@ const MenuSection = ({ title, children }: MenuSectionProps) => {
 };
 
 interface Props {
-  mode: Mode;
-  setMode: (mode: Mode) => void;
-  alphabet: AlphabetType;
-  setAlphabet: (alphabet: AlphabetType) => void;
-  includeDakuten: boolean;
-  setIncludeDakuten: (include: boolean) => void;
-  includeYoon: boolean;
-  setIncludeYoon: (include: boolean) => void;
+  settings: Settings;
+  setSettings: (settings: Settings) => void;
+  showMenu: boolean;
+  setShowMenu: (show: boolean) => void;
 }
 
 export const Nav = ({
-  mode,
-  setMode,
-  alphabet,
-  setAlphabet,
-  includeDakuten,
-  setIncludeDakuten,
-  includeYoon,
-  setIncludeYoon,
+  settings,
+  setSettings,
+  showMenu,
+  setShowMenu,
 }: Props) => {
-  // const [isOpen, setIsOpen] = useState(true);
+  const instructions = {
+    [Modes.tableReview]: "Review the hiragana and katakana characters.",
+    [Modes.jp2en]:
+      "Type the corresponding romanji (English characters) in the box for each character shown. Press spacebar for a hint!",
+  };
 
   return (
-    <div className="nav">
-      <div className="nav__icon">
+    <>
+      <div className="menu-icon" onClick={() => setShowMenu(true)}>
         <Menu />
       </div>
-      <div className="nav__menu">
-        <MenuSection title="Mode">
-          <ToggleGroup label="Alphabet" hideLabel isVertical>
-            <>
-              {Object.entries(Modes).map(([key, value]) => {
+
+      {showMenu && (
+        <div className="nav-mask" onClick={() => setShowMenu(false)} />
+      )}
+
+      <div className={clsx("nav", showMenu ? "nav--show" : "nav--hide")}>
+        <div className="nav__close" onClick={() => setShowMenu(false)}>
+          <Close />
+        </div>
+        <div className="nav__menu">
+          <MenuSection title="Mode">
+            <ToggleGroup label="Alphabet" hideLabel>
+              <>
+                {Object.entries(Modes).map(([key, value]) => {
+                  return (
+                    <Toggle
+                      key={value}
+                      name={value}
+                      label={value}
+                      isCurrent={settings.mode === value}
+                      onClick={() => setSettings({ ...settings, mode: value })}
+                    />
+                  );
+                })}
+              </>
+            </ToggleGroup>
+
+            <p className="nav__instructions">{instructions[settings.mode]}</p>
+          </MenuSection>
+
+          <MenuSection title="Options">
+            <ToggleGroup label="Alphabet" hideLabel>
+              {Object.entries(AlphabetTypes).map(([key, value]) => {
                 return (
                   <Toggle
-                    key={value}
+                    key={key}
                     name={value}
                     label={value}
-                    isCurrent={mode === value}
-                    onClick={() => setMode(value as Mode)}
+                    isCurrent={settings.alphabet === value}
+                    onClick={() =>
+                      setSettings({
+                        ...settings,
+                        alphabet: value,
+                      })
+                    }
                   />
                 );
               })}
-            </>
-          </ToggleGroup>
-        </MenuSection>
+            </ToggleGroup>
 
-        <MenuSection title="Alphabet Options">
-          <ToggleGroup label="Alphabet" hideLabel>
-            <Toggle
-              name={AlphabetTypes.hiragana}
-              label={AlphabetTypes.hiragana}
-              isCurrent={alphabet === AlphabetTypes.hiragana}
-              onClick={() => setAlphabet(AlphabetTypes.hiragana)}
+            <Checkbox
+              label="Dakuten"
+              name="dakuten"
+              isChecked={settings.includeDakuten}
+              onChange={() =>
+                setSettings({
+                  ...settings,
+                  includeDakuten: !settings.includeDakuten,
+                })
+              }
             />
-            <Toggle
-              name={AlphabetTypes.katakana}
-              label={AlphabetTypes.katakana}
-              isCurrent={alphabet === AlphabetTypes.katakana}
-              onClick={() => setAlphabet(AlphabetTypes.katakana)}
+            <Checkbox
+              label="Yōon"
+              name="yoon"
+              isChecked={settings.includeYoon}
+              onChange={() =>
+                setSettings({ ...settings, includeYoon: !settings.includeYoon })
+              }
             />
-          </ToggleGroup>
 
-          <Checkbox
-            label="Dakuten"
-            name="dakuten"
-            isChecked={includeDakuten}
-            onChange={() => setIncludeDakuten(!includeDakuten)}
-          />
+            {settings.mode === Modes.tableReview && (
+              <Checkbox
+                name="english-on-hover"
+                label="English on hover only"
+                isChecked={settings.englishOnHover}
+                onChange={() => {
+                  setSettings({
+                    ...settings,
+                    englishOnHover: !settings.englishOnHover,
+                  });
+                }}
+              />
+            )}
+          </MenuSection>
 
-          <Checkbox
-            label="Yōon"
-            name="yoon"
-            isChecked={includeYoon}
-            onChange={() => setIncludeYoon(!includeYoon)}
-          />
-        </MenuSection>
+          <MenuSection title="Fonts">
+            <ToggleGroup label="Font" hideLabel>
+              {Object.entries(Fonts).map(([key, value]) => {
+                return (
+                  <Toggle
+                    key={key}
+                    name={value}
+                    label={value}
+                    isCurrent={settings.font === value}
+                    onClick={() =>
+                      setSettings({
+                        ...settings,
+                        font: value,
+                      })
+                    }
+                  />
+                );
+              })}
+            </ToggleGroup>
+          </MenuSection>
+
+          <a
+            className="nav__link"
+            href="https://github.com/updownupdown/learn-japanese"
+            target="_blank"
+            rel="noreferrer"
+          >
+            About
+          </a>
+        </div>
       </div>
-    </div>
+    </>
   );
 };

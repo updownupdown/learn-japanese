@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;600;700&family=Hina+Mincho&family=Noto+Sans+JP&display=swap");
 @import "./media.scss";
 
 $theme-colors: (
@@ -38,11 +38,11 @@ $theme-colors: (
   }
 
   --font: "Red Hat Display", sans-serif;
+  --font-jp-noto: "Noto Sans JP", sans-serif;
+  --font-jp-red-hat: "Red Hat", sans-serif;
+  --font-jp-hina: "Hina Mincho", sans-serif;
 
   --input-height: 38px;
-
-  --box-side-padding: 50px;
-  --box-border-radius: 10px;
 }
 
 * {
@@ -69,6 +69,16 @@ button,
 input,
 select {
   font-family: var(--font);
+}
+
+.font-family--Noto-Sans .font-jp {
+  font-family: var(--font-jp-noto);
+}
+.font-family--Red-Hat .font-jp {
+  font-family: var(--font-jp-red-hat);
+}
+.font-family--Hina-Mincho .font-jp {
+  font-family: var(--font-jp-hina);
 }
 
 .button {

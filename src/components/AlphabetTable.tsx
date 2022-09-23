@@ -3,31 +3,25 @@ import clsx from "clsx";
 import {
   alphabetsColumns,
   alphabets,
-  AlphabetType,
   AlphabetTypes,
 } from "../library/alphabet";
 import "./AlphabetTable.scss";
+import { Settings } from "../App";
 
 interface Props {
-  alphabet: AlphabetType;
-  includeDakuten: boolean;
-  includeYoon: boolean;
+  settings: Settings;
 }
 
 export function isYoon(i: number) {
   return i > 4;
 }
 
-export const AlphabetTable = ({
-  alphabet,
-  includeDakuten,
-  includeYoon,
-}: Props) => {
+export const AlphabetTable = ({ settings }: Props) => {
   return (
     <div className="table">
       <div className="table__headers">
         {alphabetsColumns.map((col, i) => {
-          if (isYoon(i) && !includeYoon) return null;
+          if (isYoon(i) && !settings.includeYoon) return null;
 
           return (
             <span
@@ -42,7 +36,7 @@ export const AlphabetTable = ({
 
       <div className="table__rows">
         {alphabets.map((row, i) => {
-          if (row.dakuten && !includeDakuten) return null;
+          if (row.dakuten && !settings.includeDakuten) return null;
 
           return (
             <div key={row.title + i} className="table__row">
@@ -56,7 +50,7 @@ export const AlphabetTable = ({
               </span>
 
               {row.letters.map((cell, i) => {
-                if (isYoon(i) && !includeYoon) return null;
+                if (isYoon(i) && !settings.includeYoon) return null;
 
                 return (
                   <div
@@ -66,17 +60,42 @@ export const AlphabetTable = ({
                       isYoon(i) && "cell--wide",
                       cell === null && "cell--null",
                       cell?.exception && "cell--exception",
-                      row.dakuten && "cell--dakuten"
+                      row.dakuten && "cell--dakuten",
+                      settings.englishOnHover && "cell--hover-only"
                     )}
                   >
                     {cell && (
                       <>
-                        {alphabet === AlphabetTypes.hiragana ? (
-                          <span className="jp hg">{cell.hg}</span>
+                        {settings.alphabet === AlphabetTypes.hiragana ? (
+                          <span
+                            className={clsx(
+                              "cell__character cell__character--jp font-jp",
+                              settings.englishOnHover &&
+                                "cell__character--hover-only"
+                            )}
+                          >
+                            {cell.hg}
+                          </span>
                         ) : (
-                          <span className="jp kk">{cell.kk}</span>
+                          <span
+                            className={clsx(
+                              "cell__character cell__character--jp font-jp",
+                              settings.englishOnHover &&
+                                "cell__character--hover-only"
+                            )}
+                          >
+                            {cell.kk}
+                          </span>
                         )}
-                        <span className="en">{cell.en}</span>
+                        <span
+                          className={clsx(
+                            "cell__character cell__character--en",
+                            settings.englishOnHover &&
+                              "cell__character--hover-only"
+                          )}
+                        >
+                          {cell.en}
+                        </span>
                       </>
                     )}
                   </div>

@@ -1,22 +1,102 @@
-.nav {
-  position: relative;
-  z-index: 2;
-  padding: 20px;
-  width: 250px;
+@import "../css/media.scss";
+
+@mixin nav-icon {
+  cursor: pointer;
+
+  svg {
+    width: 32px;
+    height: 32px;
+
+    path {
+      fill: var(--K800);
+    }
+  }
+
+  &:hover {
+    svg path {
+      fill: var(--accent);
+    }
+  }
+}
+
+.menu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 9;
+  top: 10px;
+  left: 10px;
+  width: 50px;
+  height: 50px;
+
+  border-radius: 8px;
   background: var(--white);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.08), 0 0 8px rgba(0, 0, 0, 0.08);
 
-  &__icon {
+  @include nav-icon();
+
+  @media #{$query-min-lg} {
     display: none;
-    margin-bottom: 20px;
+  }
+}
 
-    svg {
-      width: 32px;
-      height: 32px;
+.nav-mask {
+  transition: 0.2s ease background-color;
+  cursor: pointer;
+  position: fixed;
+  z-index: 8;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(var(--K500-rgb), 0.35);
+  backdrop-filter: blur(3px);
 
-      path {
-        fill: var(--K800);
-      }
+  &:hover {
+    background: rgba(var(--K500-rgb), 0.2);
+  }
+}
+
+.nav {
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  padding: 20px;
+  background: var(--white);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.08), 0 0 8px rgba(0, 0, 0, 0.08);
+
+  @media #{$query-min-lg} {
+    width: 250px;
+  }
+  @media #{$query-max-lg} {
+    transition: 1s ease margin;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 350px;
+    max-width: 85%;
+
+    &--hide {
+      display: none;
+    }
+  }
+
+  &:hover {
+    margin-left: 0;
+  }
+
+  &__close {
+    margin-bottom: 10px;
+    text-align: right;
+
+    @include nav-icon();
+
+    @media #{$query-min-lg} {
+      display: none;
     }
   }
 
@@ -24,14 +104,18 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    flex: 1;
   }
 
   .menu-section {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    flex: 1;
-    gap: 12px;
+    gap: 10px;
+
+    &:first-child {
+      margin-bottom: auto;
+    }
 
     h3 {
       font-size: 16px;
@@ -45,7 +129,29 @@
   }
 
   .menu-section + .menu-section {
-    padding-top: 20px;
-    border-top: 1px solid var(--K200);
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--K200);
+  }
+
+  &__instructions {
+    margin: 20px 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+
+    @media #{$query-max-lg} {
+      font-size: 16px;
+    }
+  }
+
+  &__link {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--K500);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--accent);
+    }
   }
 }

@@ -1,0 +1,51 @@
+@import "../css/media.scss";
+
+@mixin toggle-icon {
+  $icon-size-desktop: 20px;
+  $icon-size-mobile: 24px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  &,
+  &__label {
+    cursor: pointer;
+  }
+
+  input {
+    display: none;
+  }
+
+  label {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  svg {
+    width: $icon-size-desktop;
+    height: $icon-size-desktop;
+  }
+
+  &--unchecked svg path {
+    fill: var(--K800);
+  }
+  &--unchecked:hover svg path,
+  &--checked svg path {
+    fill: var(--accent);
+  }
+
+  @media #{$query-max-lg} {
+    gap: 8px;
+
+    label {
+      font-size: 18px;
+    }
+
+    svg {
+      width: $icon-size-mobile;
+      height: $icon-size-mobile;
+    }
+  }
+}
