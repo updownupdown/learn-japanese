@@ -59,9 +59,14 @@ export const WordBuilder = (settings: Props) => {
     checkGuess();
   }, [guess]);
 
-  const handleKeyPress = (event: KeyboardEvent) => {
-    if (guessedCorrectly) {
-      event.preventDefault();
+  const handleKeyPress = (e: KeyboardEvent) => {
+    if (
+      e.key == " " ||
+      e.code == "Space" ||
+      e.keyCode == 32 ||
+      guessedCorrectly
+    ) {
+      e.preventDefault();
     }
   };
 
@@ -98,6 +103,7 @@ export const WordBuilder = (settings: Props) => {
           </span>
 
           <input
+            autoComplete="off"
             autoFocus
             spellCheck="false"
             className={clsx(

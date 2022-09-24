@@ -34,9 +34,12 @@ export const TypeChars = ({ settings }: Props) => {
     }
   }
 
-  const handleKeyPress = (event: KeyboardEvent) => {
-    if (event.key === " " && !guessedCorrectly) {
-      event.preventDefault();
+  const handleKeyPress = (e: KeyboardEvent) => {
+    if (
+      (e.key == " " || e.code == "Space" || e.keyCode == 32) &&
+      !guessedCorrectly
+    ) {
+      e.preventDefault();
 
       const nextLetter = answer[guess.length];
       let updateValue = guess + nextLetter;
@@ -50,10 +53,9 @@ export const TypeChars = ({ settings }: Props) => {
       setGuess(updateValue);
     } else if (
       guessedCorrectly ||
-      (guess.length === 3 &&
-        !(event.key === "Backspace" || event.key === "Delete"))
+      (guess.length === 3 && !(e.key === "Backspace" || e.key === "Delete"))
     ) {
-      event.preventDefault();
+      e.preventDefault();
     }
   };
 
@@ -80,6 +82,7 @@ export const TypeChars = ({ settings }: Props) => {
           <div className="type-chars-card__jp font-jp">{question}</div>
 
           <input
+            autoComplete="off"
             autoFocus
             spellCheck="false"
             className={clsx(

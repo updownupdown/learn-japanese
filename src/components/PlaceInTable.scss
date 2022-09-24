@@ -5,6 +5,8 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  max-width: calc(100vw - 40px);
+  max-height: calc(100vh - 100px);
 
   @media #{$query-min-lg} {
     margin: 40px;
@@ -29,18 +31,31 @@
       font-weight: 600;
       line-height: 1;
 
+      @media #{$query-max-sm} {
+        width: 120px;
+        height: 60px;
+      }
+
       &--question {
         background: var(--white);
         box-shadow: 1px 2px 6px rgba(var(--K700-rgb), 0.1),
           4px 8px 20px rgba(var(--K700-rgb), 0.08);
 
         font-size: 60px;
+
+        @media #{$query-max-sm} {
+          font-size: 40px;
+        }
       }
       &--guess {
         background: var(--K150);
         box-shadow: inset 0 0 10px var(--K300);
 
         font-size: 44px;
+
+        @media #{$query-max-sm} {
+          font-size: 34px;
+        }
       }
       &--correct {
         color: var(--status-green);
@@ -58,10 +73,10 @@
 
   &__table {
     $legend-size: 60px;
-    $cell-height: 70px;
-    $cell-height-hover-only: 50px;
-    $cell-width: 66px;
-    $cell-width-wide: 92px;
+    $cell-height: 52px;
+    $cell-height-mobile: 36px;
+    $cell-width: 58px;
+    $cell-width-wide: 84px;
     $cell-gap: 1px;
 
     display: flex;
@@ -102,32 +117,21 @@
       display: flex;
       gap: $cell-gap;
 
-      &__legend {
-        @include legend();
-        display: flex;
-        width: $legend-size;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-
-        background-color: var(--K150);
-
-        &--dakuten {
-          background-color: var(--K200);
-        }
-      }
-
       .cell {
         position: relative;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        flex-shrink: 0;
         width: $cell-width;
         height: $cell-height;
 
         background: var(--white);
         font-size: 28px;
+
+        @media #{$query-max-sm} {
+          height: $cell-height-mobile;
+          font-size: 22px;
+        }
 
         &--wide {
           width: $cell-width-wide;

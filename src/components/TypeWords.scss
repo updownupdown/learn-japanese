@@ -1,3 +1,5 @@
+@import "../css/media.scss";
+
 .wb {
   display: flex;
   flex-direction: column;
@@ -8,28 +10,43 @@
     font-size: 24px;
     font-weight: 500;
     color: var(--K700);
+
+    @media #{$query-max-sm} {
+      font-size: 20px;
+    }
   }
   &__kanji {
     margin-bottom: 10px;
     font-size: 34px;
     color: var(--K700);
+
+    @media #{$query-max-sm} {
+      font-size: 30px;
+    }
   }
 }
 
 .card-wrap .wb-card {
   &.card {
     gap: 20px;
+
+    @media #{$query-max-sm} {
+      gap: 16px;
+    }
   }
 
   &__hk {
     font-size: 50px;
+
+    @media #{$query-max-sm} {
+      font-size: 40px;
+    }
   }
   &__breakup {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
-    // margin-bottom: -20px;
 
     font-size: 24px;
     font-weight: 500;
@@ -48,5 +65,9 @@
 
   .large-input {
     width: 300px;
+
+    @media #{$query-max-sm} {
+      width: 280px;
+    }
   }
 }
