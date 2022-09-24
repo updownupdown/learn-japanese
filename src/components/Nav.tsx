@@ -125,7 +125,7 @@ export const Nav = ({
             )}
           </MenuSection>
 
-          <MenuSection title="Fonts">
+          <MenuSection title="Font">
             <ToggleGroup label="Font" hideLabel>
               {Object.entries(Fonts).map(([key, value]) => {
                 return (

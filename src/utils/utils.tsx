@@ -1,6 +1,17 @@
 import React from "react";
 import { Settings } from "../App";
 import { alphabets, AlphabetTypes } from "../library/alphabet";
+import {
+  charsHiragana,
+  charsHiraganaDakuten,
+  charsHiraganaDakutenYoon,
+  charsHiraganaYoon,
+  charsKatagana,
+  charsKataganaDakuten,
+  charsKataganaYoon,
+  charsKataganaDakutenYoon,
+} from "../library/characters";
+import { jp2en } from "../library/jp2en";
 
 export type ValueOf<T> = T[keyof T];
 
@@ -17,6 +28,7 @@ interface RandomCharacterProps {
   uid: string;
 }
 
+// No longer used; charecter lists compiled in characters.tsx
 const CharacterList = (settings: Settings) => {
   let letters: RandomCharacterProps[] = [];
 
@@ -46,10 +58,82 @@ const CharacterList = (settings: Settings) => {
 };
 
 export function getRandomCharacter(settings: Settings) {
-  const characters = CharacterList(settings);
+  let charactersList: RandomCharacterProps[] = [];
+
+  if (settings.alphabet === AlphabetTypes.hiragana) {
+    if (!settings.includeDakuten && !settings.includeYoon)
+      charactersList = charsHiragana;
+    if (settings.includeDakuten && !settings.includeYoon)
+      charactersList = charsHiraganaDakuten;
+    if (!settings.includeDakuten && settings.includeYoon)
+      charactersList = charsHiraganaYoon;
+    if (settings.includeDakuten && settings.includeYoon)
+      charactersList = charsHiraganaDakutenYoon;
+  } else {
+    if (!settings.includeDakuten && !settings.includeYoon)
+      charactersList = charsKatagana;
+    if (settings.includeDakuten && !settings.includeYoon)
+      charactersList = charsKataganaDakuten;
+    if (!settings.includeDakuten && settings.includeYoon)
+      charactersList = charsKataganaYoon;
+    if (settings.includeDakuten && settings.includeYoon)
+      charactersList = charsKataganaDakutenYoon;
+  }
 
   const randomCharacter =
-    characters[Math.floor(Math.random() * characters.length)];
+    charactersList[Math.floor(Math.random() * charactersList.length)];
 
   return randomCharacter;
+}
+
+export function breakUpCharacters(word: string) {
+  let english: string[] = [];
+  let japanese: string[] = [];
+
+  const wordInEnglish = word;
+
+  let skipNext = false;
+
+  for (let i = 0; i < wordInEnglish.length; i++) {
+    // skipping since we included char in previous round
+    if (skipNext) {
+      skipNext = false;
+      continue;
+    }
+
+    // check next 2 positions for valid character
+    if (wordInEnglish[i + 1]) {
+      const nextTwoChars = wordInEnglish[i] + wordInEnglish[i + 1];
+      // console.log(nextTwoChars);
+
+      if (jp2en[nextTwoChars]) {
+        // next 2 chars are one
+        skipNext = true;
+        japanese.push(nextTwoChars);
+        english.push(jp2en[nextTwoChars]);
+        continue;
+      }
+    }
+
+    // just add current character
+    japanese.push(wordInEnglish[i]);
+    english.push(jp2en[wordInEnglish[i]]);
+    skipNext = false;
+  }
+
+  return { english, japanese };
+}
+
+export async function flashCard(elementId: string, goodGuess: boolean) {
+  const pitCard = document.getElementById(elementId);
+  const cssClassCorrect = "glow-item--correct";
+  const cssClassIncorrect = "glow-item--incorrect";
+  const cssClass = goodGuess ? cssClassCorrect : cssClassIncorrect;
+
+  if (pitCard) {
+    pitCard.classList.remove(cssClassCorrect);
+    pitCard.classList.remove(cssClassIncorrect);
+    await delay(10);
+    pitCard.classList.add(cssClass);
+  }
 }

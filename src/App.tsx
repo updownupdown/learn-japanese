@@ -1,26 +1,29 @@
-import clsx from "clsx";
 import React, { useState } from "react";
 import { AlphabetTable } from "./components/AlphabetTable";
-import { JP2EN } from "./components/JP2EN";
+import { TypeChars } from "./components/TypeChars";
 import { Nav } from "./components/Nav";
 import { PlaceInTable } from "./components/PlaceInTable";
+import { WordBuilder } from "./components/WordBuilder";
 import { AlphabetType, AlphabetTypes } from "./library/alphabet";
 import { ValueOf } from "./utils/utils";
+import clsx from "clsx";
 
 export const Modes = {
   tableReview: "Study",
   placeInTable: "Find in table",
-  jp2en: "Type the character",
-  // en2jp: "English to Japanese",
+  typeChars: "Type characters",
+  typeWords: "Type words",
 } as const;
 export type Mode = ValueOf<typeof Modes>;
 
 export const instructions = {
   [Modes.tableReview]: "Review the hiragana and katakana characters.",
-  [Modes.jp2en]:
-    "Type the corresponding romanji (English characters) in the box for each character shown. Press spacebar for a hint!",
   [Modes.placeInTable]:
     "Find the correct location for the character in the table by clicking the appropriate cell.",
+  [Modes.typeChars]:
+    "Type the corresponding romanji (English characters) in the box for each character shown. Press spacebar for a hint!",
+
+  [Modes.typeWords]: "Type the romanji for each word.",
 };
 
 export const Fonts = {
@@ -80,9 +83,12 @@ function App() {
         {settings.mode === Modes.tableReview && (
           <AlphabetTable settings={settings} />
         )}
-        {settings.mode === Modes.jp2en && <JP2EN settings={settings} />}
+        {settings.mode === Modes.typeChars && <TypeChars settings={settings} />}
         {settings.mode === Modes.placeInTable && (
           <PlaceInTable settings={settings} />
+        )}
+        {settings.mode === Modes.typeWords && (
+          <WordBuilder settings={settings} />
         )}
       </div>
     </div>

@@ -4,6 +4,7 @@ This is under construction.
 
 ## Ideas
 
-- "Hint" checkbox for quiz; runs on a timer, after x seconds, it will show the first letter, then the second, etc. You still have to type.
-- EN to JP quiz
-- Place character in table exercise
+- Keep track of how many good answers in a row you have for both quizzes
+- Flash cards with dictionary, split by topics
+- Confetti behind the accurate guess when clicking on the table
+- A few syllables in a row, ideally actual words, that you have to build from cards. Must click in order (no drag and drop)

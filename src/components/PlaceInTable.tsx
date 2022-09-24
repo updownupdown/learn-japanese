@@ -6,7 +6,7 @@ import {
   AlphabetTypes,
 } from "../library/alphabet";
 import { Settings } from "../App";
-import { delay, getRandomCharacter, isYoon } from "../utils/utils";
+import { delay, flashCard, getRandomCharacter, isYoon } from "../utils/utils";
 import "./PlaceInTable.scss";
 
 interface Props {
@@ -17,6 +17,8 @@ interface CurrentCardProps {
   character: string;
   uid: string;
 }
+
+const placeInTableId = "place-in-table";
 
 export const PlaceInTable = ({ settings }: Props) => {
   const [currentCard, setCurrentCard] = useState<CurrentCardProps | undefined>(
@@ -37,30 +39,20 @@ export const PlaceInTable = ({ settings }: Props) => {
     });
   }, [guessedCorrectly, settings]);
 
-  async function flashCard(goodGuess: boolean) {
-    const pitCard = document.getElementById("pit-table");
-    const cssClassCorrect = "pit__table--correct";
-    const cssClassIncorrect = "pit__table--incorrect";
-    const cssClass = goodGuess ? cssClassCorrect : cssClassIncorrect;
+  async function checkGuess(uid: string, correctEnglish: string) {
+    const cellId = "cell-" + uid;
 
-    if (pitCard) {
-      pitCard.classList.remove(cssClassCorrect);
-      pitCard.classList.remove(cssClassIncorrect);
-      await delay(10);
-      pitCard.classList.add(cssClass);
-    }
-  }
-
-  async function checkGuess(guess: string, correctEnglish: string) {
-    if (guess === currentCard?.uid) {
+    if (uid === currentCard?.uid) {
       setLastGuess(correctEnglish);
       setGuessedCorrectly(true);
       setLastGuessCorrect(true);
-      flashCard(true);
+      flashCard(cellId, true);
+      flashCard(placeInTableId, true);
     } else {
       setLastGuess(correctEnglish);
       setLastGuessCorrect(false);
-      flashCard(false);
+      flashCard(cellId, false);
+      flashCard(placeInTableId, false);
     }
   }
 
@@ -85,7 +77,10 @@ export const PlaceInTable = ({ settings }: Props) => {
       </div>
 
       <div className="pit__table-wrap">
-        <div id="pit-table" className="pit__table">
+        <div
+          id={placeInTableId}
+          className="pit__table glow-item glow-item--outward"
+        >
           <div className="pit__table__rows">
             {alphabets.map((row, i) => {
               if (row.dakuten && !settings.includeDakuten) return null;
@@ -95,11 +90,16 @@ export const PlaceInTable = ({ settings }: Props) => {
                   {row.letters.map((cell, i) => {
                     if (isYoon(i) && !settings.includeYoon) return null;
 
+                    const uid = cell
+                      ? cell.en + cell.hg + cell.kk
+                      : `cell-${i}`;
+
                     return (
                       <div
                         key={i}
+                        id={`cell-${uid}`}
                         className={clsx(
-                          "cell font-jp",
+                          "cell font-jp glow-item glow-item--inward",
                           isYoon(i) && "cell--wide",
                           cell === null && "cell--null",
                           cell?.exception && "cell--exception",
@@ -108,7 +108,7 @@ export const PlaceInTable = ({ settings }: Props) => {
                         )}
                         onClick={() => {
                           if (!cell) return;
-                          checkGuess(cell.en + cell.hg + cell.kk, cell.en);
+                          checkGuess(uid, cell.en);
                         }}
                       >
                         {cell &&

@@ -1,21 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { Settings } from "../App";
-import { delay, getRandomCharacter, isYoon } from "../utils/utils";
+import { delay, flashCard, getRandomCharacter } from "../utils/utils";
 import clsx from "clsx";
-import "./JP2EN.scss";
+import "./TypeChars.scss";
 
 interface Props {
   settings: Settings;
 }
 
-export const JP2EN = ({ settings }: Props) => {
+const cardId = "type-chars-card";
+
+export const TypeChars = ({ settings }: Props) => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [guess, setGuess] = useState("");
   const [guessedCorrectly, setGuessedCorrectly] = useState(false);
 
+  function getNewCard() {
+    const randomCharacter = getRandomCharacter(settings);
+
+    setQuestion(randomCharacter.characterJp);
+    setAnswer(randomCharacter.characterEn);
+    setGuess("");
+    setGuessedCorrectly(false);
+  }
+
   async function checkGuess() {
     if (answer !== "" && guess === answer) {
+      flashCard(cardId, true);
       setGuessedCorrectly(true);
       await delay(2000);
       getNewCard();
@@ -45,15 +57,6 @@ export const JP2EN = ({ settings }: Props) => {
     }
   };
 
-  function getNewCard() {
-    const randomCharacter = getRandomCharacter(settings);
-
-    setQuestion(randomCharacter.characterJp);
-    setAnswer(randomCharacter.characterEn);
-    setGuess("");
-    setGuessedCorrectly(false);
-  }
-
   useEffect(() => {
     document.addEventListener("keydown", handleKeyPress);
 
@@ -71,28 +74,24 @@ export const JP2EN = ({ settings }: Props) => {
   }, [guess]);
 
   return (
-    <div className="jp2en">
-      <div className="jp2en-card">
-        <div className="jp2en-card__jp font-jp">{question}</div>
+    <div className="type-chars">
+      <div id={cardId} className="card-wrap glow-item glow-item--outward">
+        <div className="card">
+          <div className="type-chars-card__jp font-jp">{question}</div>
 
-        <input
-          autoFocus
-          spellCheck="false"
-          className={clsx("input", guessedCorrectly && "input--success")}
-          value={guess}
-          onChange={(e) => {
-            setGuess(e.target.value);
-          }}
-        />
-
-        <div
-          className={clsx(
-            "jp2en-card__delay",
-            guessedCorrectly
-              ? "jp2en-card__delay--correct"
-              : "jp2en-card__delay--incorrect"
-          )}
-        />
+          <input
+            autoFocus
+            spellCheck="false"
+            className={clsx(
+              "large-input",
+              guessedCorrectly && "large-input--success"
+            )}
+            value={guess}
+            onChange={(e) => {
+              setGuess(e.target.value);
+            }}
+          />
+        </div>
       </div>
     </div>
   );

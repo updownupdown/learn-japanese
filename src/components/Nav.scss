@@ -70,7 +70,7 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.08), 0 0 8px rgba(0, 0, 0, 0.08);
 
   @media #{$query-min-lg} {
-    width: 250px;
+    width: 240px;
   }
   @media #{$query-max-lg} {
     transition: 1s ease margin;

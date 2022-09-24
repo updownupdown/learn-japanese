@@ -1,0 +1,52 @@
+.wb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  &__translation {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--K700);
+  }
+  &__kanji {
+    margin-bottom: 10px;
+    font-size: 34px;
+    color: var(--K700);
+  }
+}
+
+.card-wrap .wb-card {
+  &.card {
+    gap: 20px;
+  }
+
+  &__hk {
+    font-size: 50px;
+  }
+  &__breakup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    // margin-bottom: -20px;
+
+    font-size: 24px;
+    font-weight: 500;
+
+    span {
+      &.bracket {
+        color: var(--K400);
+      }
+    }
+  }
+  &__en {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--K600);
+  }
+
+  .large-input {
+    width: 300px;
+  }
+}
