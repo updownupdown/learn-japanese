@@ -104,7 +104,6 @@ export function breakUpCharacters(word: string) {
     // check next 2 positions for valid character
     if (wordInEnglish[i + 1]) {
       const nextTwoChars = wordInEnglish[i] + wordInEnglish[i + 1];
-      // console.log(nextTwoChars);
 
       if (jp2en[nextTwoChars]) {
         // next 2 chars are one

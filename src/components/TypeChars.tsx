@@ -88,7 +88,7 @@ export const TypeChars = ({ settings }: Props) => {
             )}
             value={guess}
             onChange={(e) => {
-              setGuess(e.target.value);
+              setGuess(e.target.value.toLowerCase());
             }}
           />
         </div>

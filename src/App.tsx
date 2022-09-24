@@ -3,7 +3,7 @@ import { AlphabetTable } from "./components/AlphabetTable";
 import { TypeChars } from "./components/TypeChars";
 import { Nav } from "./components/Nav";
 import { PlaceInTable } from "./components/PlaceInTable";
-import { WordBuilder } from "./components/WordBuilder";
+import { WordBuilder } from "./components/TypeWords";
 import { AlphabetType, AlphabetTypes } from "./library/alphabet";
 import { ValueOf } from "./utils/utils";
 import clsx from "clsx";
@@ -21,9 +21,10 @@ export const instructions = {
   [Modes.placeInTable]:
     "Find the correct location for the character in the table by clicking the appropriate cell.",
   [Modes.typeChars]:
-    "Type the corresponding romanji (English characters) in the box for each character shown. Press spacebar for a hint!",
+    "Type the corresponding romaji (English characters) for each character shown. Press spacebar for a hint!",
 
-  [Modes.typeWords]: "Type the romanji for each word.",
+  [Modes.typeWords]:
+    "Type the corresponding romaji (English characters) for each word shown.",
 };
 
 export const Fonts = {

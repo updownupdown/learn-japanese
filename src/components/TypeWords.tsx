@@ -1,10 +1,9 @@
 import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import { Settings } from "../App";
-import { jp2en } from "../library/jp2en";
 import { wordList } from "../library/wordList";
 import { breakUpCharacters, delay, flashCard } from "../utils/utils";
-import "./WordBuilder.scss";
+import "./TypeWords.scss";
 
 interface Props {
   settings: Settings;
@@ -26,7 +25,6 @@ export const WordBuilder = (settings: Props) => {
 
   function getRandomWord() {
     const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
-    // const randomWord = ["せっかち", "せっかち", "impatient"];
     const charBreakUp = breakUpCharacters(randomWord[0]);
     let expectedInput: string[] = [];
 
@@ -108,7 +106,7 @@ export const WordBuilder = (settings: Props) => {
             )}
             value={guess}
             onChange={(e) => {
-              setGuess(e.target.value);
+              setGuess(e.target.value.toLowerCase());
             }}
           />
 
