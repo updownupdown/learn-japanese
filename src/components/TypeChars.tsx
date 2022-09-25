@@ -20,10 +20,11 @@ export const TypeChars = ({ settings }: Props) => {
   const [answer, setAnswer] = useState("");
   const [guess, setGuess] = useState("");
   const [guessedCorrectly, setGuessedCorrectly] = useState(false);
+  const [key, setKey] = useState<any>("no key");
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      console.log(e);
+      setKey(e.key + "/" + e.code);
       if (
         (e.key === " " || e.code === "Space" || e.key === undefined) &&
         !guessedCorrectly
@@ -55,16 +56,16 @@ export const TypeChars = ({ settings }: Props) => {
     };
   }, [answer, guess, guessedCorrectly]);
 
+  function getNewCard() {
+    const randomCharacter = getRandomCharacter(settings);
+
+    setQuestion(randomCharacter.characterJp);
+    setAnswer(randomCharacter.characterEn);
+    setGuess("");
+    setGuessedCorrectly(false);
+  }
+
   useEffect(() => {
-    function getNewCard() {
-      const randomCharacter = getRandomCharacter(settings);
-
-      setQuestion(randomCharacter.characterJp);
-      setAnswer(randomCharacter.characterEn);
-      setGuess("");
-      setGuessedCorrectly(false);
-    }
-
     async function checkGuess() {
       if (question === "") {
         getNewCard();
@@ -77,14 +78,18 @@ export const TypeChars = ({ settings }: Props) => {
     }
 
     checkGuess();
-  }, [guess, answer, settings, question]);
+  }, [guess, answer, question]);
+
+  useEffect(() => {
+    getNewCard();
+  }, [settings]);
 
   return (
     <div className="type-chars">
       <div id={cardId} className="card-wrap glow-item glow-item--outward">
         <div className="card">
           <div className="type-chars-card__jp font-jp">{question}</div>
-
+          <h1>{key}</h1>
           <form autoComplete="off">
             <input
               type="text"
