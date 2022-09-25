@@ -60,16 +60,21 @@ export const WordBuilder = () => {
   }, [guess, word, answer]);
 
   useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key === " " || e.code === "Space" || guessedCorrectly) {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        e.key === " " ||
+        e.code === "Space" ||
+        e.key === undefined ||
+        guessedCorrectly
+      ) {
         e.preventDefault();
       }
     };
 
-    document.addEventListener("keydown", handleKeyPress);
+    document.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.removeEventListener("keydown", handleKeyPress);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [guessedCorrectly]);
 
@@ -97,20 +102,22 @@ export const WordBuilder = () => {
             })}
           </span>
 
-          <input
-            type="text"
-            autoComplete="false"
-            autoFocus
-            spellCheck="false"
-            className={clsx(
-              "large-input",
-              guessedCorrectly && "large-input--success"
-            )}
-            value={guess}
-            onChange={(e) => {
-              setGuess(e.target.value.toLowerCase());
-            }}
-          />
+          <form autoComplete="off">
+            <input
+              type="text"
+              autoComplete="off"
+              autoFocus
+              spellCheck="false"
+              className={clsx(
+                "large-input",
+                guessedCorrectly && "large-input--success"
+              )}
+              value={guess}
+              onChange={(e) => {
+                setGuess(e.target.value.toLowerCase());
+              }}
+            />
+          </form>
 
           <span className="wb-card__en">{answer?.expectedInput}</span>
         </div>

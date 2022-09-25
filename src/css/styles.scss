@@ -187,6 +187,10 @@ label {
   }
 }
 
+.autocomplete-decoy {
+  display: none;
+}
+
 @import "./card.scss";
 @import "./glow.scss";
 @import "./layout.scss";

@@ -22,9 +22,12 @@ export const TypeChars = ({ settings }: Props) => {
   const [guessedCorrectly, setGuessedCorrectly] = useState(false);
 
   useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       console.log(e);
-      if ((e.key === " " || e.code === "Space") && !guessedCorrectly) {
+      if (
+        (e.key === " " || e.code === "Space" || e.key === undefined) &&
+        !guessedCorrectly
+      ) {
         e.preventDefault();
 
         const nextLetter = answer[guess.length];
@@ -45,10 +48,10 @@ export const TypeChars = ({ settings }: Props) => {
       }
     };
 
-    document.addEventListener("keydown", handleKeyPress);
+    document.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.removeEventListener("keydown", handleKeyPress);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [answer, guess, guessedCorrectly]);
 
@@ -82,20 +85,22 @@ export const TypeChars = ({ settings }: Props) => {
         <div className="card">
           <div className="type-chars-card__jp font-jp">{question}</div>
 
-          <input
-            type="text"
-            autoComplete="false"
-            autoFocus
-            spellCheck="false"
-            className={clsx(
-              "large-input",
-              guessedCorrectly && "large-input--success"
-            )}
-            value={guess}
-            onChange={(e) => {
-              setGuess(e.target.value.toLowerCase());
-            }}
-          />
+          <form autoComplete="off">
+            <input
+              type="text"
+              autoComplete="off"
+              autoFocus
+              spellCheck="false"
+              className={clsx(
+                "large-input",
+                guessedCorrectly && "large-input--success"
+              )}
+              value={guess}
+              onChange={(e) => {
+                setGuess(e.target.value.toLowerCase());
+              }}
+            />
+          </form>
         </div>
       </div>
     </div>
