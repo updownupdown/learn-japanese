@@ -1,0 +1,119 @@
+.dictionary {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__top {
+    position: sticky;
+    top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 12px;
+
+    border-radius: 6px;
+    background: rgba(var(--K150-rgb), 0.8);
+    backdrop-filter: blur(1px);
+
+    .dictionary-search {
+      position: relative;
+
+      svg {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+
+        path {
+          fill: var(--K700);
+        }
+      }
+
+      input {
+        transition: 0.2s ease all;
+        transition-property: border-color, box-shadow, background-color;
+        padding: 0 20px 0 40px;
+        width: 100%;
+        height: var(--input-height);
+
+        border-radius: 6px;
+        border: 2px solid var(--K300);
+        background: var(--white);
+
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--K800);
+
+        &:not(.large-input--success):hover {
+          border-color: var(--K500);
+        }
+        &:not(.large-input--success):focus {
+          outline: none;
+          border-color: var(--accent);
+        }
+      }
+    }
+  }
+
+  .dictionary-no-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding-top: 20px;
+
+    p {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--K500);
+    }
+  }
+
+  table {
+    // width: 360px;
+    // max-width: 100%;
+
+    width: 100%;
+    max-width: 360px;
+
+    td {
+      padding: 10px 0;
+    }
+
+    .dictionary-word {
+      &__jp {
+        width: 40%;
+      }
+
+      &__en {
+        width: 60%;
+        padding-left: 20px;
+      }
+    }
+
+    .dictionary-word-breakup {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      &__kanji {
+        font-size: 18px;
+        color: var(--kanji);
+      }
+      &__hk {
+        font-size: 18px;
+      }
+
+      &__en {
+        font-size: 16px;
+        font-weight: 700;
+      }
+      &__romaji {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--K600);
+      }
+    }
+  }
+}

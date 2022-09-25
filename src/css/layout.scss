@@ -28,15 +28,9 @@
   .main-inner {
     margin: auto;
     padding: var(--main-padding);
-    // max-width: 100%;
-  }
 
-  // @media #{$query-min-lg} {
-  //   width: 100%;
-  //   min-height: 100%;
-  // }
-  @media #{$query-max-lg} {
-    // min-width: 100vw;
-    // min-height: 100vh;
+    &--force-height-100 {
+      height: 100%;
+    }
   }
 }

@@ -26,6 +26,7 @@ $theme-colors: (
   "accent": #266f8e,
   "accent-pale": #d6ebf4,
   "accent-dark": #266f8e,
+  "kanji": #bc002d,
 );
 
 :root {
@@ -70,7 +71,8 @@ body {
 body,
 button,
 input,
-select {
+select,
+td {
   font-family: var(--font);
 }
 

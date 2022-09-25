@@ -7,12 +7,14 @@ import { WordBuilder } from "./components/TypeWords";
 import { AlphabetType, AlphabetTypes } from "./library/alphabet";
 import { ValueOf } from "./utils/utils";
 import clsx from "clsx";
+import { Dictionary } from "./components/Dictionary";
 
 export const Modes = {
   tableStudy: "Study table",
   tableFind: "Find in table",
   typeChars: "Type characters",
   typeWords: "Type words",
+  dictionary: "Dictionary",
 } as const;
 export type Mode = ValueOf<typeof Modes>;
 
@@ -22,9 +24,9 @@ export const instructions = {
     "Find the correct location for the character in the table by clicking the appropriate cell.",
   [Modes.typeChars]:
     "Type the corresponding romaji (English characters) for each character shown. Press spacebar for a hint!",
-
   [Modes.typeWords]:
     "Type the corresponding romaji (English characters) for each word shown.",
+  [Modes.dictionary]: "Dictionary of words in Japanese and English.",
 };
 
 export const Fonts = {
@@ -91,7 +93,12 @@ function App() {
       />
 
       <div className="main">
-        <div className="main-inner">
+        <div
+          className={clsx(
+            "main-inner",
+            settings.mode === Modes.dictionary && "main-inner--force-height-100"
+          )}
+        >
           {settings.mode === Modes.tableStudy && (
             <TableStudy settings={settings} />
           )}
@@ -102,6 +109,7 @@ function App() {
             <TableFind settings={settings} />
           )}
           {settings.mode === Modes.typeWords && <WordBuilder />}
+          {settings.mode === Modes.dictionary && <Dictionary />}
         </div>
       </div>
     </div>

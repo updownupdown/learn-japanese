@@ -64,7 +64,7 @@ export const WordBuilder = () => {
       if (
         e.key === " " ||
         e.code === "Space" ||
-        e.key === "Undefined" ||
+        e.key === "Unidentified" ||
         guessedCorrectly
       ) {
         e.preventDefault();

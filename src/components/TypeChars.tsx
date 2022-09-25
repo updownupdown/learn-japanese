@@ -27,7 +27,7 @@ export const TypeChars = ({ settings }: Props) => {
     const handleKeyDown = (e: KeyboardEvent) => {
       setKey(e.key + "/" + e.code);
       if (
-        (e.key === " " || e.code === "Space" || e.key === "Undefined") &&
+        (e.key === " " || e.code === "Space" || e.key === "Unidentified") &&
         !guessedCorrectly
       ) {
         e.preventDefault();
