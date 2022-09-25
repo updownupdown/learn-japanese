@@ -64,7 +64,7 @@ export const WordBuilder = () => {
       if (
         e.key === " " ||
         e.code === "Space" ||
-        e.key === undefined ||
+        e.key === "Undefined" ||
         guessedCorrectly
       ) {
         e.preventDefault();
@@ -102,22 +102,19 @@ export const WordBuilder = () => {
             })}
           </span>
 
-          <form autoComplete="off">
-            <input
-              type="text"
-              autoComplete="off"
-              autoFocus
-              spellCheck="false"
-              className={clsx(
-                "large-input",
-                guessedCorrectly && "large-input--success"
-              )}
-              value={guess}
-              onChange={(e) => {
-                setGuess(e.target.value.toLowerCase());
-              }}
-            />
-          </form>
+          <input
+            type="text"
+            autoFocus
+            spellCheck="false"
+            className={clsx(
+              "large-input",
+              guessedCorrectly && "large-input--success"
+            )}
+            value={guess}
+            onChange={(e) => {
+              setGuess(e.target.value.toLowerCase());
+            }}
+          />
 
           <span className="wb-card__en">{answer?.expectedInput}</span>
         </div>

@@ -1,10 +1,8 @@
 # Learn Japanese
 
-This is under construction.
+View app here: https://updownupdown.github.io/learn-japanese/
 
-## Ideas
+## To-do
 
-- Keep track of how many good answers in a row you have for both quizzes
-- Flash cards with dictionary, split by topics
-- Confetti behind the accurate guess when clicking on the table
-- A few syllables in a row, ideally actual words, that you have to build from cards. Must click in order (no drag and drop)
+- Update random algorithm: create random list so you only go through characters once. Keep track of score. Ability to reset. Starts new set when ended first set.
+- Search word dictionary

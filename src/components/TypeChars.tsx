@@ -20,13 +20,11 @@ export const TypeChars = ({ settings }: Props) => {
   const [answer, setAnswer] = useState("");
   const [guess, setGuess] = useState("");
   const [guessedCorrectly, setGuessedCorrectly] = useState(false);
-  const [key, setKey] = useState<any>("no key");
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      setKey(e.key + "/" + e.code);
       if (
-        (e.key === " " || e.code === "Space" || e.key === undefined) &&
+        (e.key === " " || e.code === "Space" || e.key === "Undefined") &&
         !guessedCorrectly
       ) {
         e.preventDefault();
@@ -89,23 +87,19 @@ export const TypeChars = ({ settings }: Props) => {
       <div id={cardId} className="card-wrap glow-item glow-item--outward">
         <div className="card">
           <div className="type-chars-card__jp font-jp">{question}</div>
-          <h1>{key}</h1>
-          <form autoComplete="off">
-            <input
-              type="text"
-              autoComplete="off"
-              autoFocus
-              spellCheck="false"
-              className={clsx(
-                "large-input",
-                guessedCorrectly && "large-input--success"
-              )}
-              value={guess}
-              onChange={(e) => {
-                setGuess(e.target.value.toLowerCase());
-              }}
-            />
-          </form>
+          <input
+            type="text"
+            autoFocus
+            spellCheck="false"
+            className={clsx(
+              "large-input",
+              guessedCorrectly && "large-input--success"
+            )}
+            value={guess}
+            onChange={(e) => {
+              setGuess(e.target.value.toLowerCase());
+            }}
+          />
         </div>
       </div>
     </div>
