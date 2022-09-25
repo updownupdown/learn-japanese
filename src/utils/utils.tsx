@@ -1,4 +1,3 @@
-import React from "react";
 import { Settings } from "../App";
 import { alphabets, AlphabetTypes } from "../library/alphabet";
 import {
@@ -31,7 +30,7 @@ interface RandomCharacterProps {
 }
 
 // No longer used; charecter lists compiled in characters.tsx
-const CharacterList = (settings: Settings) => {
+export const CharacterList = (settings: Settings) => {
   let letters: RandomCharacterProps[] = [];
 
   alphabets.forEach((row) => {

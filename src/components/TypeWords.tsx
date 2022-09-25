@@ -61,7 +61,7 @@ export const WordBuilder = () => {
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key === " " || e.code === "Spacebar" || guessedCorrectly) {
+      if (e.key === " " || e.code === "Space" || guessedCorrectly) {
         e.preventDefault();
       }
     };
@@ -98,6 +98,7 @@ export const WordBuilder = () => {
           </span>
 
           <input
+            type="text"
             autoComplete="false"
             autoFocus
             spellCheck="false"

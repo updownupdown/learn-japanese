@@ -2,7 +2,6 @@
 @import "../css/mixins.scss";
 
 .pit {
-  $border-radius: 12px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -21,14 +20,14 @@
       height: 80px;
       flex-shrink: 0;
 
-      border-radius: 10px;
+      border-radius: var(--table-border-radius);
 
       font-weight: 600;
       line-height: 1;
 
       @media #{$query-max-sm} {
-        width: 120px;
-        height: 60px;
+        width: 100px;
+        height: 50px;
       }
 
       &--question {
@@ -39,7 +38,7 @@
         font-size: 60px;
 
         @media #{$query-max-sm} {
-          font-size: 40px;
+          font-size: 34px;
         }
       }
       &--guess {
@@ -49,7 +48,7 @@
         font-size: 44px;
 
         @media #{$query-max-sm} {
-          font-size: 34px;
+          font-size: 30px;
         }
       }
       &--correct {
@@ -68,9 +67,11 @@
   &__table {
     $legend-size: 60px;
     $cell-height: 52px;
-    $cell-height-mobile: 36px;
+    $cell-height-mobile: 38px;
     $cell-width: 58px;
+    $cell-width-mobile: 38px;
     $cell-width-wide: 84px;
+    $cell-width-wide-mobile: 52px;
     $cell-gap: 1px;
 
     display: flex;
@@ -115,13 +116,18 @@
         background: var(--white);
         font-size: 28px;
 
-        @media #{$query-max-sm} {
-          height: $cell-height-mobile;
-          font-size: 22px;
-        }
-
         &--wide {
           width: $cell-width-wide;
+        }
+
+        @media #{$query-max-sm} {
+          width: $cell-width-mobile;
+          height: $cell-height-mobile;
+          font-size: 20px;
+
+          &--wide {
+            width: $cell-width-wide-mobile;
+          }
         }
 
         &--dakuten,
@@ -140,16 +146,16 @@
       }
 
       &:first-child .cell:first-child {
-        border-top-left-radius: $border-radius;
+        border-top-left-radius: var(--table-border-radius);
       }
       &:first-child .cell:last-child {
-        border-top-right-radius: $border-radius;
+        border-top-right-radius: var(--table-border-radius);
       }
       &:last-child .cell:first-child {
-        border-bottom-left-radius: $border-radius;
+        border-bottom-left-radius: var(--table-border-radius);
       }
       &:last-child .cell:last-child {
-        border-bottom-right-radius: $border-radius;
+        border-bottom-right-radius: var(--table-border-radius);
       }
     }
   }

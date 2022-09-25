@@ -23,7 +23,8 @@ export const TypeChars = ({ settings }: Props) => {
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      if ((e.key === " " || e.code === "Spacebar") && !guessedCorrectly) {
+      console.log(e);
+      if ((e.key === " " || e.code === "Space") && !guessedCorrectly) {
         e.preventDefault();
 
         const nextLetter = answer[guess.length];
@@ -82,6 +83,7 @@ export const TypeChars = ({ settings }: Props) => {
           <div className="type-chars-card__jp font-jp">{question}</div>
 
           <input
+            type="text"
             autoComplete="false"
             autoFocus
             spellCheck="false"

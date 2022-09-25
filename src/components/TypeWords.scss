@@ -28,6 +28,7 @@
 
 .card-wrap .wb-card {
   &.card {
+    width: 360px;
     gap: 20px;
 
     @media #{$query-max-sm} {
