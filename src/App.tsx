@@ -1,24 +1,24 @@
 import React, { useState } from "react";
-import { AlphabetTable } from "./components/AlphabetTable";
+import { TableStudy } from "./components/TableStudy";
 import { TypeChars } from "./components/TypeChars";
 import { Nav } from "./components/Nav";
-import { PlaceInTable } from "./components/PlaceInTable";
+import { TableFind } from "./components/TableFind";
 import { WordBuilder } from "./components/TypeWords";
 import { AlphabetType, AlphabetTypes } from "./library/alphabet";
 import { ValueOf } from "./utils/utils";
 import clsx from "clsx";
 
 export const Modes = {
-  tableReview: "Study",
-  placeInTable: "Find in table",
+  tableStudy: "Study table",
+  tableFind: "Find in table",
   typeChars: "Type characters",
   typeWords: "Type words",
 } as const;
 export type Mode = ValueOf<typeof Modes>;
 
 export const instructions = {
-  [Modes.tableReview]: "Review the hiragana and katakana characters.",
-  [Modes.placeInTable]:
+  [Modes.tableStudy]: "Review the hiragana and katakana characters.",
+  [Modes.tableFind]:
     "Find the correct location for the character in the table by clicking the appropriate cell.",
   [Modes.typeChars]:
     "Type the corresponding romaji (English characters) for each character shown. Press spacebar for a hint!",
@@ -44,7 +44,7 @@ export interface Settings {
 }
 
 const defaultSettings: Settings = {
-  mode: Modes.tableReview,
+  mode: Modes.tableStudy,
   alphabet: AlphabetTypes.hiragana,
   includeDakuten: true,
   includeYoon: true,
@@ -92,14 +92,14 @@ function App() {
 
       <div className="main">
         <div className="main-inner">
-          {settings.mode === Modes.tableReview && (
-            <AlphabetTable settings={settings} />
+          {settings.mode === Modes.tableStudy && (
+            <TableStudy settings={settings} />
           )}
           {settings.mode === Modes.typeChars && (
             <TypeChars settings={settings} />
           )}
-          {settings.mode === Modes.placeInTable && (
-            <PlaceInTable settings={settings} />
+          {settings.mode === Modes.tableFind && (
+            <TableFind settings={settings} />
           )}
           {settings.mode === Modes.typeWords && <WordBuilder />}
         </div>

@@ -7,17 +7,17 @@ import {
 } from "../library/alphabet";
 import { Settings } from "../App";
 import { isYoon } from "../utils/utils";
-import "./AlphabetTable.scss";
+import "./TableStudy.scss";
 
 interface Props {
   settings: Settings;
 }
 
-export const AlphabetTable = ({ settings }: Props) => {
+export const TableStudy = ({ settings }: Props) => {
   return (
-    <div className="table-wrap">
+    <div className="table-study-wrap">
       <div className="table">
-        <div className="table__headers">
+        <div className="table-study__headers">
           {alphabetsColumns.map((col, i) => {
             if (isYoon(i) && !settings.includeYoon) return null;
 
@@ -25,8 +25,8 @@ export const AlphabetTable = ({ settings }: Props) => {
               <span
                 key={col}
                 className={clsx(
-                  "table__header",
-                  i > 4 && "table__header--wide"
+                  "table-study__header",
+                  i > 4 && "table-study__header--wide"
                 )}
               >
                 {col}
@@ -35,16 +35,16 @@ export const AlphabetTable = ({ settings }: Props) => {
           })}
         </div>
 
-        <div className="table__rows">
+        <div className="table-study__rows">
           {alphabets.map((row, i) => {
             if (row.dakuten && !settings.includeDakuten) return null;
 
             return (
-              <div key={row.title + i} className="table__row">
+              <div key={row.title + i} className="table-study__row">
                 <span
                   className={clsx(
-                    "table__row__legend",
-                    row.dakuten && "table__row__legend--dakuten"
+                    "table-study__row__legend",
+                    row.dakuten && "table-study__row__legend--dakuten"
                   )}
                 >
                   {row.title}

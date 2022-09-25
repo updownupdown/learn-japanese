@@ -80,7 +80,7 @@ export const Nav = ({
 
             <p className="nav__instructions">{instructions[settings.mode]}</p>
 
-            {settings.mode === Modes.tableReview && (
+            {settings.mode === Modes.tableStudy && (
               <Checkbox
                 name="english-on-hover"
                 label="English on hover only"

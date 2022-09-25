@@ -125,15 +125,15 @@ export function breakUpCharacters(word: string) {
 }
 
 export async function flashCard(elementId: string, goodGuess: boolean) {
-  const pitCard = document.getElementById(elementId);
+  const tableFindCard = document.getElementById(elementId);
   const cssClassCorrect = "glow-item--correct";
   const cssClassIncorrect = "glow-item--incorrect";
   const cssClass = goodGuess ? cssClassCorrect : cssClassIncorrect;
 
-  if (pitCard) {
-    pitCard.classList.remove(cssClassCorrect);
-    pitCard.classList.remove(cssClassIncorrect);
+  if (tableFindCard) {
+    tableFindCard.classList.remove(cssClassCorrect);
+    tableFindCard.classList.remove(cssClassIncorrect);
     await delay(10);
-    pitCard.classList.add(cssClass);
+    tableFindCard.classList.add(cssClass);
   }
 }

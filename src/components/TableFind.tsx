@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
 import clsx from "clsx";
-import {
-  alphabetsColumns,
-  alphabets,
-  AlphabetTypes,
-} from "../library/alphabet";
+import { alphabets, AlphabetTypes } from "../library/alphabet";
 import { Settings } from "../App";
-import { delay, flashCard, getRandomCharacter, isYoon } from "../utils/utils";
-import "./PlaceInTable.scss";
+import { flashCard, getRandomCharacter, isYoon } from "../utils/utils";
+import "./TableFind.scss";
 
 interface Props {
   settings: Settings;
@@ -18,9 +14,9 @@ interface CurrentCardProps {
   uid: string;
 }
 
-const placeInTableId = "place-in-table";
+const tableFindId = "table-find";
 
-export const PlaceInTable = ({ settings }: Props) => {
+export const TableFind = ({ settings }: Props) => {
   const [currentCard, setCurrentCard] = useState<CurrentCardProps | undefined>(
     undefined
   );
@@ -47,28 +43,30 @@ export const PlaceInTable = ({ settings }: Props) => {
       setGuessedCorrectly(true);
       setLastGuessCorrect(true);
       flashCard(cellId, true);
-      flashCard(placeInTableId, true);
+      flashCard(tableFindId, true);
     } else {
       setLastGuess(correctEnglish);
       setLastGuessCorrect(false);
       flashCard(cellId, false);
-      flashCard(placeInTableId, false);
+      flashCard(tableFindId, false);
     }
   }
 
   return (
-    <div className="pit">
-      <div className="pit__top">
+    <div className="table-find">
+      <div className="table-find__top">
         {currentCard && (
-          <div className="pit-card pit-card--question">
+          <div className="table-find-card table-find-card--question">
             {currentCard.character}
           </div>
         )}
         {currentCard && (
           <div
             className={clsx(
-              "pit-card pit-card--guess",
-              lastGuessCorrect ? "pit-card--correct" : "pit-card--incorrect"
+              "table-find-card table-find-card--guess",
+              lastGuessCorrect
+                ? "table-find-card--correct"
+                : "table-find-card--incorrect"
             )}
           >
             {lastGuess}
@@ -76,17 +74,17 @@ export const PlaceInTable = ({ settings }: Props) => {
         )}
       </div>
 
-      <div className="pit__table-wrap">
+      <div className="table-find__table-wrap">
         <div
-          id={placeInTableId}
-          className="pit__table glow-item glow-item--outward"
+          id={tableFindId}
+          className="table-find__table glow-item glow-item--outward"
         >
-          <div className="pit__table__rows">
+          <div className="table-find__table__rows">
             {alphabets.map((row, i) => {
               if (row.dakuten && !settings.includeDakuten) return null;
 
               return (
-                <div key={row.title + i} className="pit__table__row">
+                <div key={row.title + i} className="table-find__table__row">
                   {row.letters.map((cell, i) => {
                     if (isYoon(i) && !settings.includeYoon) return null;
 

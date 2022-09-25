@@ -21,8 +21,11 @@ export const TypeChars = ({ settings }: Props) => {
   const [guess, setGuess] = useState("");
   const [guessedCorrectly, setGuessedCorrectly] = useState(false);
 
+  const [key, setKey] = useState<any>("");
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      setKey(e.key + "/" + e.code);
       if (
         (e.key === " " || e.code === "Space" || e.key === "Undefined") &&
         !guessedCorrectly
@@ -87,6 +90,7 @@ export const TypeChars = ({ settings }: Props) => {
       <div id={cardId} className="card-wrap glow-item glow-item--outward">
         <div className="card">
           <div className="type-chars-card__jp font-jp">{question}</div>
+          <h1>{key}</h1>
           <input
             type="text"
             autoFocus

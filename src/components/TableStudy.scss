@@ -1,7 +1,7 @@
 @import "../css/media.scss";
 @import "../css/mixins.scss";
 
-.table-wrap {
+.table-study-wrap {
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -9,7 +9,7 @@
   @include table-wrap-style();
 }
 
-.table {
+.table-study {
   $legend-size: 60px;
   $legend-size-mobile: 40px;
   $cell-height: 60px;
@@ -50,7 +50,7 @@
       padding-left: $legend-size-mobile + $cell-gap;
     }
 
-    .table__header {
+    .table-study__header {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -203,7 +203,7 @@
       }
     }
 
-    &:last-child .table__row__legend {
+    &:last-child .table-study__row__legend {
       border-bottom-left-radius: var(--table-border-radius);
     }
   }
