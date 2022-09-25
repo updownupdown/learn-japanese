@@ -28,8 +28,8 @@
 
 .card-wrap .wb-card {
   &.card {
-    width: 360px;
-    gap: 20px;
+    width: 400px;
+    gap: 30px;
 
     @media #{$query-max-sm} {
       gap: 16px;
@@ -37,14 +37,24 @@
   }
 
   &__hk {
-    font-size: 50px;
+    font-size: 44px;
 
     @media #{$query-max-sm} {
       font-size: 40px;
     }
+
+    &:not(.wb-card__hk--no-hint) {
+      cursor: pointer;
+
+      &:hover {
+        color: var(--accent);
+      }
+    }
   }
   &__breakup {
-    display: flex;
+    // hiding for now; using spacebar for hints instead
+    // display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     gap: 12px;
@@ -59,6 +69,8 @@
     }
   }
   &__en {
+    // hiding for now; using spacebar for hints instead
+    display: none;
     font-size: 18px;
     font-weight: 500;
     color: var(--K600);

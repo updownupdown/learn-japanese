@@ -1,5 +1,13 @@
-.type-chars {
-  &-card__jp {
+.type-chars-card {
+  &__jp {
     font-size: 60px;
+
+    &:not(.type-chars-card__jp--no-hint) {
+      cursor: pointer;
+
+      &:hover {
+        color: var(--accent);
+      }
+    }
   }
 }

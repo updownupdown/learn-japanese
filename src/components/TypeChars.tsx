@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Settings } from "../App";
 import {
   delay,
@@ -21,27 +21,24 @@ export const TypeChars = ({ settings }: Props) => {
   const [guess, setGuess] = useState("");
   const [guessedCorrectly, setGuessedCorrectly] = useState(false);
 
-  const [key, setKey] = useState<any>("");
+  const getHint = useCallback(() => {
+    const nextLetter = answer[guess.length];
+    let updateValue = guess + nextLetter;
+
+    for (let i = 0; i < guess.length; i++) {
+      if (guess[i] !== answer[i]) {
+        updateValue = answer[0];
+      }
+    }
+
+    setGuess(updateValue);
+  }, [answer, guess]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      setKey(e.key + "/" + e.code);
-      if (
-        (e.key === " " || e.code === "Space" || e.key === "Unidentified") &&
-        !guessedCorrectly
-      ) {
+      if ((e.key === " " || e.code === "Space") && !guessedCorrectly) {
         e.preventDefault();
-
-        const nextLetter = answer[guess.length];
-        let updateValue = guess + nextLetter;
-
-        for (let i = 0; i < guess.length; i++) {
-          if (guess[i] !== answer[i]) {
-            updateValue = answer[0];
-          }
-        }
-
-        setGuess(updateValue);
+        getHint();
       } else if (
         guessedCorrectly ||
         (guess.length === 3 && !(e.key === "Backspace" || e.key === "Delete"))
@@ -55,16 +52,16 @@ export const TypeChars = ({ settings }: Props) => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [answer, guess, guessedCorrectly]);
+  }, [answer, guess, guessedCorrectly, getHint]);
 
-  function getNewCard() {
+  const getNewCard = useCallback(() => {
     const randomCharacter = getRandomCharacter(settings);
 
     setQuestion(randomCharacter.characterJp);
     setAnswer(randomCharacter.characterEn);
     setGuess("");
     setGuessedCorrectly(false);
-  }
+  }, [settings]);
 
   useEffect(() => {
     async function checkGuess() {
@@ -79,18 +76,25 @@ export const TypeChars = ({ settings }: Props) => {
     }
 
     checkGuess();
-  }, [guess, answer, question]);
+  }, [guess, answer, question, getNewCard]);
 
   useEffect(() => {
     getNewCard();
-  }, [settings]);
+  }, [settings, getNewCard]);
 
   return (
     <div className="type-chars">
       <div id={cardId} className="card-wrap glow-item glow-item--outward">
         <div className="card">
-          <div className="type-chars-card__jp font-jp">{question}</div>
-          <h1>{key}</h1>
+          <div
+            className={clsx(
+              "type-chars-card__jp font-jp",
+              guessedCorrectly && "type-chars-card__jp--no-hint"
+            )}
+            onClick={() => getHint()}
+          >
+            {question}
+          </div>
           <input
             type="text"
             autoFocus
