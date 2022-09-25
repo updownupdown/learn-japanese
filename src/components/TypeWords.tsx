@@ -1,13 +1,13 @@
-import clsx from "clsx";
 import React, { useEffect, useState } from "react";
-import { Settings } from "../App";
 import { wordList } from "../library/wordList";
-import { breakUpCharacters, delay, flashCard } from "../utils/utils";
+import {
+  breakUpCharacters,
+  delay,
+  flashCard,
+  newCardDelay,
+} from "../utils/utils";
+import clsx from "clsx";
 import "./TypeWords.scss";
-
-interface Props {
-  settings: Settings;
-}
 
 type Answer = {
   japanese: string[];
@@ -17,66 +17,61 @@ type Answer = {
 
 const cardId = "wp-card";
 
-export const WordBuilder = (settings: Props) => {
+export const WordBuilder = () => {
   const [word, setWord] = useState<string[]>([]);
   const [answer, setAnswer] = useState<Answer | undefined>(undefined);
   const [guess, setGuess] = useState("");
   const [guessedCorrectly, setGuessedCorrectly] = useState(false);
 
-  function getRandomWord() {
-    const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
-    const charBreakUp = breakUpCharacters(randomWord[0]);
-    let expectedInput: string[] = [];
+  useEffect(() => {
+    function getRandomWord() {
+      const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
+      const charBreakUp = breakUpCharacters(randomWord[0]);
+      let expectedInput: string[] = [];
 
-    charBreakUp.english.forEach((char) => {
-      if (!char.includes("(")) expectedInput.push(char);
-    });
+      charBreakUp.english.forEach((char) => {
+        if (!char.includes("(")) expectedInput.push(char);
+      });
 
-    setWord(randomWord);
-    setAnswer({
-      japanese: charBreakUp.japanese,
-      english: charBreakUp.english,
-      expectedInput: expectedInput.join(""),
-    });
-    setGuess("");
-    setGuessedCorrectly(false);
-  }
+      setWord(randomWord);
+      setAnswer({
+        japanese: charBreakUp.japanese,
+        english: charBreakUp.english,
+        expectedInput: expectedInput.join(""),
+      });
+      setGuess("");
+      setGuessedCorrectly(false);
+    }
 
-  async function checkGuess() {
-    if (guess === answer?.expectedInput) {
-      flashCard(cardId, true);
-      setGuessedCorrectly(true);
-      await delay(2000);
+    async function checkGuess() {
+      if (guess === answer!.expectedInput) {
+        flashCard(cardId, true);
+        setGuessedCorrectly(true);
+        await delay(newCardDelay);
+        getRandomWord();
+      }
+    }
+
+    if (!word.length) {
       getRandomWord();
+    } else if (answer) {
+      checkGuess();
     }
-  }
+  }, [guess, word, answer]);
 
   useEffect(() => {
-    getRandomWord();
-  }, []);
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key === " " || e.code === "Spacebar" || guessedCorrectly) {
+        e.preventDefault();
+      }
+    };
 
-  useEffect(() => {
-    checkGuess();
-  }, [guess]);
-
-  const handleKeyPress = (e: KeyboardEvent) => {
-    if (
-      e.key == " " ||
-      e.code == "Space" ||
-      e.keyCode == 32 ||
-      guessedCorrectly
-    ) {
-      e.preventDefault();
-    }
-  };
-
-  useEffect(() => {
     document.addEventListener("keydown", handleKeyPress);
 
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
     };
-  }, [handleKeyPress]);
+  }, [guessedCorrectly]);
 
   return (
     <div className="wb">
@@ -103,7 +98,7 @@ export const WordBuilder = (settings: Props) => {
           </span>
 
           <input
-            autoComplete="off"
+            autoComplete="false"
             autoFocus
             spellCheck="false"
             className={clsx(

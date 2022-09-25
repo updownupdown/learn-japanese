@@ -3,6 +3,9 @@
 .card-wrap {
   $border-radius: 10px;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: $border-radius;
 
   .card {
@@ -10,7 +13,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 300px;
+    width: 300px;
+    max-width: calc(100vw - var(--main-padding) * 2);
     gap: 30px;
     padding: 30px;
 

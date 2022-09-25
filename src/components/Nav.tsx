@@ -50,7 +50,18 @@ export const Nav = ({
           <Close />
         </div>
         <div className="nav__menu">
-          <MenuSection title="Mode">
+          <div className="nav__menu__heading">
+            <h2>Learn Japanese</h2>
+            <a
+              href="https://github.com/updownupdown/learn-japanese"
+              target="_blank"
+              rel="noreferrer"
+            >
+              About
+            </a>
+          </div>
+
+          <MenuSection title="Exercise">
             <ToggleGroup label="Alphabet" hideLabel>
               <>
                 {Object.entries(Modes).map(([key, value]) => {
@@ -68,9 +79,23 @@ export const Nav = ({
             </ToggleGroup>
 
             <p className="nav__instructions">{instructions[settings.mode]}</p>
+
+            {settings.mode === Modes.tableReview && (
+              <Checkbox
+                name="english-on-hover"
+                label="English on hover only"
+                isChecked={settings.englishOnHover}
+                onChange={() => {
+                  setSettings({
+                    ...settings,
+                    englishOnHover: !settings.englishOnHover,
+                  });
+                }}
+              />
+            )}
           </MenuSection>
 
-          <MenuSection title="Options">
+          <MenuSection title="Alphabet">
             <ToggleGroup label="Alphabet" hideLabel>
               {Object.entries(AlphabetTypes).map(([key, value]) => {
                 return (
@@ -109,20 +134,6 @@ export const Nav = ({
                 setSettings({ ...settings, includeYoon: !settings.includeYoon })
               }
             />
-
-            {settings.mode === Modes.tableReview && (
-              <Checkbox
-                name="english-on-hover"
-                label="English on hover only"
-                isChecked={settings.englishOnHover}
-                onChange={() => {
-                  setSettings({
-                    ...settings,
-                    englishOnHover: !settings.englishOnHover,
-                  });
-                }}
-              />
-            )}
           </MenuSection>
 
           <MenuSection title="Font">
@@ -145,15 +156,6 @@ export const Nav = ({
               })}
             </ToggleGroup>
           </MenuSection>
-
-          <a
-            className="nav__link"
-            href="https://github.com/updownupdown/learn-japanese"
-            target="_blank"
-            rel="noreferrer"
-          >
-            About
-          </a>
         </div>
       </div>
     </>

@@ -1,11 +1,18 @@
 @import "../css/media.scss";
 
+$nav-mobile-width: 320px;
+$nav-padding: 20px;
+$nav-close-icon: 32px;
+$nav-mobile-min-gap: 40px;
+$nav-mobile-small-width: $nav-mobile-width + $nav-mobile-min-gap;
+$menu-section-gap: 30px;
+
 @mixin nav-icon {
   cursor: pointer;
 
   svg {
-    width: 32px;
-    height: 32px;
+    width: $nav-close-icon;
+    height: $nav-close-icon;
 
     path {
       fill: var(--K800);
@@ -65,12 +72,13 @@
   flex-direction: column;
   align-items: stretch;
 
-  padding: 20px;
+  padding: $nav-padding;
   background: var(--white);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.08), 0 0 8px rgba(0, 0, 0, 0.08);
 
   @media #{$query-min-lg} {
     width: 240px;
+    flex-shrink: 0;
   }
   @media #{$query-max-lg} {
     transition: 1s ease margin;
@@ -78,12 +86,15 @@
     top: 0;
     bottom: 0;
     left: 0;
-    width: 350px;
-    max-width: 85%;
+    width: $nav-mobile-width;
+    padding-top: 40px;
 
     &--hide {
       display: none;
     }
+  }
+  @media (max-width: $nav-mobile-small-width) {
+    width: calc(100% - $nav-mobile-min-gap);
   }
 
   &:hover {
@@ -91,21 +102,51 @@
   }
 
   &__close {
-    margin-bottom: 10px;
-    text-align: right;
+    display: flex;
+    position: fixed;
+    top: $nav-padding;
+    left: $nav-mobile-width - $nav-padding - $nav-close-icon;
+
+    border-radius: 6px;
+    background: var(--white);
 
     @include nav-icon();
 
     @media #{$query-min-lg} {
       display: none;
     }
+    @media (max-width: $nav-mobile-small-width) {
+      left: auto;
+      right: $nav-mobile-min-gap + $nav-padding;
+    }
   }
 
   &__menu {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: $menu-section-gap;
     flex: 1;
+
+    &__heading {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      h2 {
+        font-size: 22px;
+        font-weight: 700;
+      }
+      a {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--K500);
+        text-decoration: none;
+
+        &:hover {
+          color: var(--accent);
+        }
+      }
+    }
   }
 
   .menu-section {
@@ -114,7 +155,10 @@
     align-items: flex-start;
     gap: 10px;
 
-    &:first-child {
+    padding-top: $menu-section-gap;
+    border-top: 1px solid var(--K200);
+
+    &:nth-child(2) {
       margin-bottom: auto;
     }
 
@@ -129,30 +173,14 @@
     }
   }
 
-  .menu-section + .menu-section {
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--K200);
-  }
-
   &__instructions {
-    margin: 20px 0;
+    margin: 12px 0 0;
     font-size: 14px;
     font-weight: 500;
     line-height: 1.4;
 
     @media #{$query-max-lg} {
       font-size: 16px;
-    }
-  }
-
-  &__link {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--K500);
-    text-decoration: none;
-
-    &:hover {
-      color: var(--accent);
     }
   }
 }

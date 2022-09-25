@@ -1,34 +1,29 @@
 @import "../css/media.scss";
+@import "../css/mixins.scss";
 
 .table-wrap {
   display: flex;
   flex-direction: column;
   gap: 30px;
+
+  @include table-wrap-style();
 }
 
 .table {
   $legend-size: 60px;
+  $legend-size-mobile: 40px;
   $cell-height: 60px;
+  $cell-height-mobile: 50px;
   $cell-height-hover-only: 50px;
   $cell-width: 66px;
+  $cell-width-mobile: 44px;
   $cell-width-wide: 92px;
+  $cell-width-wide-mobile: 56px;
   $cell-gap: 1px;
-  $border-radius: 12px;
 
   display: flex;
   flex-direction: column;
   padding: $cell-gap;
-
-  border-radius: $border-radius;
-  background: var(--K150);
-  box-shadow: 1px 2px 6px rgba(var(--K700-rgb), 0.1),
-    4px 8px 20px rgba(var(--K700-rgb), 0.08);
-
-  text-align: center;
-
-  @media #{$query-min-lg} {
-    margin: 40px;
-  }
 
   @mixin legend {
     font-size: 18px;
@@ -51,6 +46,10 @@
     padding-left: $legend-size + $cell-gap;
     gap: $cell-gap;
 
+    @media #{$query-max-sm} {
+      padding-left: $legend-size-mobile + $cell-gap;
+    }
+
     .table__header {
       display: flex;
       align-items: center;
@@ -62,10 +61,17 @@
 
       @include legend();
 
-      background-color: var(--K150);
-
       &--wide {
         width: $cell-width-wide;
+      }
+
+      @media #{$query-max-sm} {
+        width: $cell-width-mobile;
+        height: $legend-size-mobile;
+
+        &--wide {
+          width: $cell-width-wide-mobile;
+        }
       }
     }
   }
@@ -93,6 +99,10 @@
       &--dakuten {
         background-color: var(--K200);
       }
+
+      @media #{$query-max-sm} {
+        width: $legend-size-mobile;
+      }
     }
 
     .cell {
@@ -108,12 +118,21 @@
 
       background: var(--white);
 
-      &--hover-only {
-        height: $cell-height-hover-only;
-      }
-
       &--wide {
         width: $cell-width-wide;
+      }
+
+      @media #{$query-max-sm} {
+        height: $cell-height-mobile;
+        width: $cell-width-mobile;
+
+        &--wide {
+          width: $cell-width-wide-mobile;
+        }
+      }
+
+      &--hover-only {
+        height: $cell-height-hover-only;
       }
 
       &--dakuten,
@@ -128,6 +147,15 @@
         &--en {
           font-size: 16px;
           font-weight: 400;
+        }
+
+        @media #{$query-max-sm} {
+          &--jp {
+            font-size: 20px;
+          }
+          &--en {
+            font-size: 14px;
+          }
         }
 
         &--hover-only {
@@ -172,8 +200,8 @@
       }
     }
 
-    &:last-child .cell:last-child {
-      border-bottom-right-radius: $border-radius;
+    &:last-child .table__row__legend {
+      border-bottom-left-radius: var(--table-border-radius);
     }
   }
 }

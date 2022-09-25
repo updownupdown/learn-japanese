@@ -1,16 +1,11 @@
 @import "../css/media.scss";
+@import "../css/mixins.scss";
 
 .pit {
   $border-radius: 12px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-width: calc(100vw - 40px);
-  max-height: calc(100vh - 100px);
-
-  @media #{$query-min-lg} {
-    margin: 40px;
-  }
 
   &__top {
     display: flex;
@@ -67,8 +62,7 @@
   }
 
   &__table-wrap {
-    border-radius: $border-radius;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.08), 0 0 8px rgba(0, 0, 0, 0.08);
+    @include table-wrap-style;
   }
 
   &__table {
@@ -82,13 +76,6 @@
     display: flex;
     flex-direction: column;
     padding: $cell-gap;
-
-    border-radius: $border-radius;
-    background: var(--K150);
-    box-shadow: 1px 2px 6px rgba(var(--K700-rgb), 0.1),
-      4px 8px 20px rgba(var(--K700-rgb), 0.08);
-
-    text-align: center;
 
     @mixin legend {
       font-size: 18px;

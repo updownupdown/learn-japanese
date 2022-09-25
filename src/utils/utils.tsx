@@ -22,6 +22,8 @@ export function isYoon(i: number) {
   return i > 4;
 }
 
+export const newCardDelay = 1650;
+
 interface RandomCharacterProps {
   characterJp: string;
   characterEn: string;

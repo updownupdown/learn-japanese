@@ -53,7 +53,17 @@ const defaultSettings: Settings = {
 };
 
 function App() {
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, _setShowMenu] = useState(false);
+
+  function setShowMenu(showMenu: boolean) {
+    if (showMenu) {
+      document.body.style.overflowY = "hidden";
+    } else {
+      document.body.style.overflowY = "visible";
+    }
+
+    _setShowMenu(showMenu);
+  }
 
   const storedSettings = JSON.parse(localStorage.getItem("settings") || "{}");
 
@@ -81,16 +91,18 @@ function App() {
       />
 
       <div className="main">
-        {settings.mode === Modes.tableReview && (
-          <AlphabetTable settings={settings} />
-        )}
-        {settings.mode === Modes.typeChars && <TypeChars settings={settings} />}
-        {settings.mode === Modes.placeInTable && (
-          <PlaceInTable settings={settings} />
-        )}
-        {settings.mode === Modes.typeWords && (
-          <WordBuilder settings={settings} />
-        )}
+        <div className="main-inner">
+          {settings.mode === Modes.tableReview && (
+            <AlphabetTable settings={settings} />
+          )}
+          {settings.mode === Modes.typeChars && (
+            <TypeChars settings={settings} />
+          )}
+          {settings.mode === Modes.placeInTable && (
+            <PlaceInTable settings={settings} />
+          )}
+          {settings.mode === Modes.typeWords && <WordBuilder />}
+        </div>
       </div>
     </div>
   );
