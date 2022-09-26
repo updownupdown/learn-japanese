@@ -23,9 +23,9 @@ export const instructions = {
   [Modes.tableFind]:
     "Find the correct location for the character in the table by clicking the appropriate cell.",
   [Modes.typeChars]:
-    "Type the corresponding romaji (English characters) for each character shown. Press spacebar for a hint!",
+    "Type the corresponding romaji (English characters) for each character shown. Press Space/Enter or tap the symbol for a hint!",
   [Modes.typeWords]:
-    "Type the corresponding romaji (English characters) for each word shown.",
+    "Type the corresponding romaji (English characters) for each word shown. Press Space/Enter or tap the symbol for a hint!",
   [Modes.dictionary]: "Dictionary of words in Japanese and English.",
 };
 
@@ -42,6 +42,7 @@ export interface Settings {
   includeDakuten: boolean;
   includeYoon: boolean;
   englishOnHover: boolean;
+  showBothAlphabets: boolean;
   font: Font;
 }
 
@@ -51,6 +52,7 @@ const defaultSettings: Settings = {
   includeDakuten: true,
   includeYoon: true,
   englishOnHover: false,
+  showBothAlphabets: false,
   font: Fonts.notoSansJp,
 };
 

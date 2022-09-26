@@ -62,7 +62,7 @@ export const Nav = ({
           </div>
 
           <MenuSection title="Exercise">
-            <ToggleGroup label="Alphabet" hideLabel>
+            <ToggleGroup label="Modes" hideLabel>
               <>
                 {Object.entries(Modes).map(([key, value]) => {
                   return (
@@ -95,46 +95,53 @@ export const Nav = ({
             )}
           </MenuSection>
 
-          <MenuSection title="Alphabet">
-            <ToggleGroup label="Alphabet" hideLabel>
-              {Object.entries(AlphabetTypes).map(([key, value]) => {
-                return (
-                  <Toggle
-                    key={key}
-                    name={value}
-                    label={value}
-                    isCurrent={settings.alphabet === value}
-                    onClick={() =>
-                      setSettings({
-                        ...settings,
-                        alphabet: value,
-                      })
-                    }
-                  />
-                );
-              })}
-            </ToggleGroup>
+          {(settings.mode === Modes.tableFind ||
+            settings.mode === Modes.tableStudy ||
+            settings.mode === Modes.typeChars) && (
+            <MenuSection title="Alphabet Options">
+              <ToggleGroup label="Alphabet" hideLabel>
+                {Object.entries(AlphabetTypes).map(([key, value]) => {
+                  return (
+                    <Toggle
+                      key={key}
+                      name={value}
+                      label={value}
+                      isCurrent={settings.alphabet === value}
+                      onClick={() =>
+                        setSettings({
+                          ...settings,
+                          alphabet: value,
+                        })
+                      }
+                    />
+                  );
+                })}
+              </ToggleGroup>
 
-            <Checkbox
-              label="Dakuten"
-              name="dakuten"
-              isChecked={settings.includeDakuten}
-              onChange={() =>
-                setSettings({
-                  ...settings,
-                  includeDakuten: !settings.includeDakuten,
-                })
-              }
-            />
-            <Checkbox
-              label="Yōon"
-              name="yoon"
-              isChecked={settings.includeYoon}
-              onChange={() =>
-                setSettings({ ...settings, includeYoon: !settings.includeYoon })
-              }
-            />
-          </MenuSection>
+              <Checkbox
+                label="Dakuten"
+                name="dakuten"
+                isChecked={settings.includeDakuten}
+                onChange={() =>
+                  setSettings({
+                    ...settings,
+                    includeDakuten: !settings.includeDakuten,
+                  })
+                }
+              />
+              <Checkbox
+                label="Yōon"
+                name="yoon"
+                isChecked={settings.includeYoon}
+                onChange={() =>
+                  setSettings({
+                    ...settings,
+                    includeYoon: !settings.includeYoon,
+                  })
+                }
+              />
+            </MenuSection>
+          )}
 
           <MenuSection title="Font">
             <ToggleGroup label="Font" hideLabel>

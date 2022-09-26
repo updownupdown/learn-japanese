@@ -36,7 +36,10 @@ export const TypeChars = ({ settings }: Props) => {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.key === " " || e.code === "Space") && !guessedCorrectly) {
+      if (
+        (e.key === " " || e.code === "Space" || e.key === "Enter") &&
+        !guessedCorrectly
+      ) {
         e.preventDefault();
         getHint();
       } else if (

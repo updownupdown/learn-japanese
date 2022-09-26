@@ -25,7 +25,6 @@ export const WordBuilder = () => {
 
   const getHint = useCallback(() => {
     if (answer === undefined) return;
-    console.log("getting hint still");
 
     const nextLetter = answer.expectedInput[guess.length];
     let updateValue = guess + nextLetter;
@@ -77,7 +76,11 @@ export const WordBuilder = () => {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.key === " " || e.code === "Space") && !guessedCorrectly) {
+      console.log(e);
+      if (
+        (e.key === " " || e.code === "Space" || e.key === "Enter") &&
+        !guessedCorrectly
+      ) {
         e.preventDefault();
         getHint();
       } else if (guessedCorrectly) {

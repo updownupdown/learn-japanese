@@ -1,11 +1,18 @@
+@import "../css/media.scss";
+
 .dictionary {
   display: flex;
   flex-direction: column;
   gap: 20px;
 
+  @media #{$query-min-sm} {
+    padding-bottom: 40px;
+  }
+  @media #{$query-max-sm} {
+    padding-bottom: 100px;
+  }
+
   &__top {
-    position: sticky;
-    top: 20px;
     display: flex;
     justify-content: center;
     gap: 8px;
@@ -14,6 +21,17 @@
     border-radius: 6px;
     background: rgba(var(--K150-rgb), 0.8);
     backdrop-filter: blur(1px);
+
+    @media #{$query-min-sm} {
+      position: sticky;
+      top: 20px;
+    }
+    @media #{$query-max-sm} {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+    }
 
     .dictionary-search {
       position: relative;
