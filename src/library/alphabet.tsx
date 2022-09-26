@@ -1,4 +1,3 @@
-import React from "react";
 import { ValueOf } from "../utils/utils";
 
 export const AlphabetTypes = {

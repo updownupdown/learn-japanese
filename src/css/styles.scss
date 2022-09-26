@@ -103,9 +103,12 @@ label {
   font-weight: 700;
 }
 
+button {
+  cursor: pointer;
+}
+
 .button {
   transition: 0.2s ease all;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;

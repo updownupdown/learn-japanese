@@ -10,7 +10,6 @@ import {
   charsKataganaYoon,
   charsKataganaDakutenYoon,
 } from "../library/characters";
-import { jp2en } from "../library/jp2en";
 
 export type ValueOf<T> = T[keyof T];
 
@@ -23,10 +22,24 @@ export function isYoon(i: number) {
 
 export const newCardDelay = 1650;
 
-interface RandomCharacterProps {
+export interface RandomCharacterProps {
   characterJp: string;
   characterEn: string;
   uid: string;
+}
+
+export type SavedDeck = {
+  deck: RandomCharacterProps[];
+  position: number;
+  settings: Settings;
+};
+
+export function getNewDeck(settings: Settings) {
+  return {
+    deck: getCharacterDeck(settings),
+    position: 0,
+    settings,
+  };
 }
 
 // No longer used; charecter lists compiled in characters.tsx
@@ -57,6 +70,49 @@ export const CharacterList = (settings: Settings) => {
 
   return letters;
 };
+
+function shuffleArray(array: any[]) {
+  let currentIndex = array.length,
+    randomIndex;
+
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+
+  return array;
+}
+
+export function getCharacterDeck(settings: Settings) {
+  let charactersList: RandomCharacterProps[] = [];
+
+  if (settings.alphabet === AlphabetTypes.hiragana) {
+    if (!settings.includeDakuten && !settings.includeYoon)
+      charactersList = charsHiragana;
+    if (settings.includeDakuten && !settings.includeYoon)
+      charactersList = charsHiraganaDakuten;
+    if (!settings.includeDakuten && settings.includeYoon)
+      charactersList = charsHiraganaYoon;
+    if (settings.includeDakuten && settings.includeYoon)
+      charactersList = charsHiraganaDakutenYoon;
+  } else {
+    if (!settings.includeDakuten && !settings.includeYoon)
+      charactersList = charsKatagana;
+    if (settings.includeDakuten && !settings.includeYoon)
+      charactersList = charsKataganaDakuten;
+    if (!settings.includeDakuten && settings.includeYoon)
+      charactersList = charsKataganaYoon;
+    if (settings.includeDakuten && settings.includeYoon)
+      charactersList = charsKataganaDakutenYoon;
+  }
+
+  return shuffleArray(charactersList);
+}
 
 export function getRandomCharacter(settings: Settings) {
   let charactersList: RandomCharacterProps[] = [];

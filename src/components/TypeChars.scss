@@ -1,3 +1,9 @@
+.type-chars {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
 .type-chars-card {
   &__jp {
     font-size: 60px;

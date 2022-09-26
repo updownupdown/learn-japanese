@@ -51,7 +51,7 @@ export const Nav = ({
         </div>
         <div className="nav__menu">
           <div className="nav__menu__heading">
-            <h2>Learn Japanese</h2>
+            <h2>Learn Kana</h2>
             <a
               href="https://github.com/updownupdown/learn-japanese"
               target="_blank"

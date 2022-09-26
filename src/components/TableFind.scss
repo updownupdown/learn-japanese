@@ -143,6 +143,36 @@
             color: var(--accent-dark);
           }
         }
+
+        .text--hk {
+          position: relative;
+          z-index: 2;
+        }
+
+        .text--en {
+          position: absolute;
+          z-index: 1;
+          display: none;
+          // display: flex;
+          align-items: center;
+          justify-content: center;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+
+          font-size: 18px;
+          font-weight: 600;
+        }
+
+        // &.glow-item--incorrect {
+        //   .text--hk {
+        //     opacity: 0;
+        //   }
+        //   .text--en {
+        //     opacity: 1;
+        //   }
+        // }
       }
 
       &:first-child .cell:first-child {
