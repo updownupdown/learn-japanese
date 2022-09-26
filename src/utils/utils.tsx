@@ -87,43 +87,6 @@ export function getRandomCharacter(settings: Settings) {
   return randomCharacter;
 }
 
-export function breakUpCharacters(word: string) {
-  let english: string[] = [];
-  let japanese: string[] = [];
-
-  const wordInEnglish = word;
-
-  let skipNext = false;
-
-  for (let i = 0; i < wordInEnglish.length; i++) {
-    // skipping since we included char in previous round
-    if (skipNext) {
-      skipNext = false;
-      continue;
-    }
-
-    // check next 2 positions for valid character
-    if (wordInEnglish[i + 1]) {
-      const nextTwoChars = wordInEnglish[i] + wordInEnglish[i + 1];
-
-      if (jp2en[nextTwoChars]) {
-        // next 2 chars are one
-        skipNext = true;
-        japanese.push(nextTwoChars);
-        english.push(jp2en[nextTwoChars]);
-        continue;
-      }
-    }
-
-    // just add current character
-    japanese.push(wordInEnglish[i]);
-    english.push(jp2en[wordInEnglish[i]]);
-    skipNext = false;
-  }
-
-  return { english, japanese };
-}
-
 export async function flashCard(elementId: string, goodGuess: boolean) {
   const tableFindCard = document.getElementById(elementId);
   const cssClassCorrect = "glow-item--correct";

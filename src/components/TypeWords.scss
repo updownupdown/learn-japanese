@@ -51,26 +51,10 @@
       }
     }
   }
-  &__breakup {
-    // hiding for now; using spacebar for hints instead
-    // display: flex;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
 
-    font-size: 24px;
-    font-weight: 500;
-
-    span {
-      &.bracket {
-        color: var(--K400);
-      }
-    }
-  }
   &__en {
     // hiding for now; using spacebar for hints instead
-    display: none;
+    // display: none;
     font-size: 18px;
     font-weight: 500;
     color: var(--K600);

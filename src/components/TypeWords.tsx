@@ -1,18 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { wordList } from "../library/wordList";
-import {
-  breakUpCharacters,
-  delay,
-  flashCard,
-  newCardDelay,
-} from "../utils/utils";
+import { delay, flashCard, newCardDelay } from "../utils/utils";
 import clsx from "clsx";
 import "./TypeWords.scss";
+import { toRomaji } from "wanakana";
 
 type Answer = {
-  japanese: string[];
-  english: string[];
-  expectedInput: string;
+  japanese: string;
+  english: string;
 };
 
 const cardId = "wp-card";
@@ -26,12 +21,12 @@ export const WordBuilder = () => {
   const getHint = useCallback(() => {
     if (answer === undefined) return;
 
-    const nextLetter = answer.expectedInput[guess.length];
+    const nextLetter = answer.english[guess.length];
     let updateValue = guess + nextLetter;
 
     for (let i = 0; i < guess.length; i++) {
-      if (guess[i] !== answer.expectedInput[i]) {
-        updateValue = answer.expectedInput[0];
+      if (guess[i] !== answer.english[i]) {
+        updateValue = answer.english[0];
       }
     }
 
@@ -41,25 +36,18 @@ export const WordBuilder = () => {
   useEffect(() => {
     function getRandomWord() {
       const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
-      const charBreakUp = breakUpCharacters(randomWord[0]);
-      let expectedInput: string[] = [];
-
-      charBreakUp.english.forEach((char) => {
-        if (!char.includes("(")) expectedInput.push(char);
-      });
 
       setWord(randomWord);
       setAnswer({
-        japanese: charBreakUp.japanese,
-        english: charBreakUp.english,
-        expectedInput: expectedInput.join(""),
+        japanese: randomWord[0],
+        english: toRomaji(randomWord[0]),
       });
       setGuess("");
       setGuessedCorrectly(false);
     }
 
     async function checkGuess() {
-      if (guess === answer!.expectedInput) {
+      if (guess === answer!.english) {
         flashCard(cardId, true);
         setGuessedCorrectly(true);
         await delay(newCardDelay);
@@ -115,16 +103,6 @@ export const WordBuilder = () => {
                 .map((char, i) => <span key={char + i}>{char}</span>)}
           </span>
 
-          <span className="wb-card__breakup">
-            {answer?.english.map((char, i) => {
-              return (
-                <span key={i} className={clsx(char.includes("(") && "bracket")}>
-                  {char}
-                </span>
-              );
-            })}
-          </span>
-
           <input
             type="text"
             autoFocus
@@ -139,7 +117,7 @@ export const WordBuilder = () => {
             }}
           />
 
-          <span className="wb-card__en">{answer?.expectedInput}</span>
+          <span className="wb-card__en">{answer?.english}</span>
         </div>
       </div>
     </div>

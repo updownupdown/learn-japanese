@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { wordList } from "../library/wordList";
-import { breakUpCharacters } from "../utils/utils";
 import "./Dictionary.scss";
 import { Search } from "./Icons/Search";
+import { toRomaji } from "wanakana";
 
 export const Dictionary = () => {
   const [words, setWords] = useState<string[][]>([]);
@@ -77,8 +77,6 @@ export const Dictionary = () => {
       <table className="dictionary__table">
         <tbody>
           {words.map((word) => {
-            const charBreakUp = breakUpCharacters(word[0]);
-
             return (
               <tr key={word[0] + word[1] + word[2]}>
                 <td className="dictionary-word__jp font-jp">
@@ -97,7 +95,7 @@ export const Dictionary = () => {
                       {word[2]}
                     </span>
                     <span className="dictionary-word-breakup__romaji">
-                      {charBreakUp.english.join("")}
+                      {toRomaji(word[0])}
                     </span>
                   </div>
                 </td>
