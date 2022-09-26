@@ -81,17 +81,30 @@ export const Nav = ({
             <p className="nav__instructions">{instructions[settings.mode]}</p>
 
             {settings.mode === Modes.tableStudy && (
-              <Checkbox
-                name="english-on-hover"
-                label="English on hover only"
-                isChecked={settings.englishOnHover}
-                onChange={() => {
-                  setSettings({
-                    ...settings,
-                    englishOnHover: !settings.englishOnHover,
-                  });
-                }}
-              />
+              <>
+                <Checkbox
+                  name="english-on-hover"
+                  label="Show English on hover"
+                  isChecked={settings.englishOnHover}
+                  onChange={() => {
+                    setSettings({
+                      ...settings,
+                      englishOnHover: !settings.englishOnHover,
+                    });
+                  }}
+                />
+                <Checkbox
+                  name="show-both-alphabets"
+                  label="Show both alphabets"
+                  isChecked={settings.showBothAlphabets}
+                  onChange={() => {
+                    setSettings({
+                      ...settings,
+                      showBothAlphabets: !settings.showBothAlphabets,
+                    });
+                  }}
+                />
+              </>
             )}
           </MenuSection>
 

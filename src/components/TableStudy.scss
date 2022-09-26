@@ -12,9 +12,15 @@
 .table-study {
   $legend-size: 60px;
   $legend-size-mobile: 40px;
-  $cell-height: 60px;
-  $cell-height-mobile: 50px;
-  $cell-height-hover-only: 50px;
+
+  // $cell-height: 60px;
+  // $cell-height-mobile: 50px;
+  // $cell-height-hover-only: 50px;
+
+  // $cell-height-both-alpha: 90px;
+  // $cell-height-mobile-both-alpha: 74px;
+  // $cell-height-hover-only-both-alpha: 76px;
+
   $cell-width: 66px;
   $cell-width-mobile: 44px;
   $cell-width-wide: 92px;
@@ -114,25 +120,36 @@
       flex-shrink: 0;
       gap: 4px;
       width: $cell-width;
-      height: $cell-height;
+      padding: 8px 0;
+      // height: $cell-height;
 
       background: var(--white);
 
+      // &--both-alphabets {
+      // height: $cell-height-both-alpha;
+      // }
       &--wide {
         width: $cell-width-wide;
       }
 
+      &--hover-only {
+        // height: $cell-height-hover-only;
+      }
+      // &--hover-only.cell--both-alphabets {
+      // height: $cell-height-hover-only-both-alpha;
+      // }
+
       @media #{$query-max-sm} {
-        height: $cell-height-mobile;
+        padding: 6px 0;
+        // height: $cell-height-mobile;
         width: $cell-width-mobile;
 
+        // &--both-alphabets {
+        // height: $cell-height-mobile-both-alpha;
+        // }
         &--wide {
           width: $cell-width-wide-mobile;
         }
-      }
-
-      &--hover-only {
-        height: $cell-height-hover-only;
       }
 
       &--dakuten,
@@ -160,20 +177,17 @@
 
         &--hover-only {
           cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
 
-          &.cell__character--jp {
-            z-index: 2;
-            opacity: 1;
-          }
           &.cell__character--en {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
             opacity: 0;
             z-index: 1;
             font-size: 20px;

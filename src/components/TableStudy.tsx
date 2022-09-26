@@ -62,12 +62,14 @@ export const TableStudy = ({ settings }: Props) => {
                         cell === null && "cell--null",
                         cell?.exception && "cell--exception",
                         row.dakuten && "cell--dakuten",
-                        settings.englishOnHover && "cell--hover-only"
+                        settings.englishOnHover && "cell--hover-only",
+                        settings.showBothAlphabets && "cell--both-alphabets"
                       )}
                     >
                       {cell && (
                         <>
-                          {settings.alphabet === AlphabetTypes.hiragana ? (
+                          {(settings.alphabet === AlphabetTypes.hiragana ||
+                            settings.showBothAlphabets) && (
                             <span
                               className={clsx(
                                 "cell__character cell__character--jp font-jp",
@@ -77,7 +79,10 @@ export const TableStudy = ({ settings }: Props) => {
                             >
                               {cell.hg}
                             </span>
-                          ) : (
+                          )}
+
+                          {(settings.alphabet === AlphabetTypes.katakana ||
+                            settings.showBothAlphabets) && (
                             <span
                               className={clsx(
                                 "cell__character cell__character--jp font-jp",
@@ -88,6 +93,7 @@ export const TableStudy = ({ settings }: Props) => {
                               {cell.kk}
                             </span>
                           )}
+
                           <span
                             className={clsx(
                               "cell__character cell__character--en",

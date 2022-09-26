@@ -62,12 +62,11 @@
 
   &__table-wrap {
     @include table-wrap-style;
+    margin: 0 auto;
   }
 
   &__table {
     $legend-size: 60px;
-    $cell-height: 52px;
-    $cell-height-mobile: 38px;
     $cell-width: 58px;
     $cell-width-mobile: 38px;
     $cell-width-wide: 84px;
@@ -111,7 +110,7 @@
         flex-direction: column;
         justify-content: center;
         width: $cell-width;
-        height: $cell-height;
+        padding: 10px 0;
 
         background: var(--white);
         font-size: 28px;
@@ -121,8 +120,9 @@
         }
 
         @media #{$query-max-sm} {
+          padding: 8px 0;
+
           width: $cell-width-mobile;
-          height: $cell-height-mobile;
           font-size: 20px;
 
           &--wide {
